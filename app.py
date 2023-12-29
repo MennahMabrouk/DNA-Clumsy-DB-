@@ -7,12 +7,12 @@ st.set_page_config(
     layout="centered",
 )
 
-# Set background color to purple
+# Set background color to black
 st.markdown(
     """
     <style>
     body {
-        background-color: #6e42c7;
+        background-color: black;
         color: white;
     }
 
