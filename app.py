@@ -12,7 +12,7 @@ st.markdown(
     """
     <style>
     body {
-        background-color: black;
+        background-color: black !important;
         color: white;
     }
 
