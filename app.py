@@ -42,7 +42,7 @@ st.image(image_url, width=None)
 st.markdown("</div>", unsafe_allow_html=True)
 
 # Page title
-st.title("DNA Harmony Hub")
+st.title("Helical Hues Haven")
 
 # User choice: Sign Up or Sign In
 choice = st.radio("Choose an option:", ["Sign Up", "Sign In"])
