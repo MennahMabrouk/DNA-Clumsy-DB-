@@ -45,7 +45,7 @@ st.markdown("</div>", unsafe_allow_html=True)
 st.title("Helical Hues Haven")
 
 # User choice: Sign Up or Sign In
-#choice = st.radio(["Sign Up", "Sign In"])
+choice = st.radio("", ["Sign Up", "Sign In"])
 
 # Sign-up section
 if choice == "Sign Up":
