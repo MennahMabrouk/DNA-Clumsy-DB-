@@ -1,48 +1,60 @@
 import streamlit as st
 
-# Set page title and icon
-st.set_page_config(
-    page_title="DNA Harmony Hub",
-    page_icon="🔒",
-    layout="centered",
-)
+# Set the theme colors
+primary_color = "#8b00ff"  # Purple
+background_color = "#000000"  # Black
+text_color = "#ffffff"  # White
+secondary_color = "#e68a00"  # Dark Yellow
 
-# Set background color to black
+# Apply theme styles
 st.markdown(
-    """
+    f"""
     <style>
-    body {
-        background-color: black !important;
-        color: white;
-    }
+    body {{
+        background-color: {background_color} !important;
+        color: {text_color};
+    }}
 
-    .stApp {
-        color: white;
-    }
+    .stApp {{
+        color: {text_color};
+    }}
 
-    .image-container {
-        opacity: 0.9; /* Adjust the opacity for the fade effect */
-        border-radius: 15px; /* Adjust the border-radius for rounded corners */
+    .image-container {{
+        opacity: 0.9;
+        border-radius: 15px;
         overflow: hidden;
-    }
+        margin-bottom: 20px;
+    }}
 
-    .image-container img {
+    .image-container img {{
         width: 100%;
         border-radius: 15px;
-    }
+    }}
+
+    .title-container {{
+        background: linear-gradient(90deg, {primary_color}, {secondary_color});
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        transition: background 0.3s ease-in-out;
+    }}
+
+    .title-container:hover {{
+        background: linear-gradient(90deg, {secondary_color}, {primary_color});
+    }}
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-# Display image at the beginning
-image_url = "https://hms.harvard.edu/sites/default/files/media/DNA-850.jpg"
+# Display image at the beginning with caption
 st.markdown('<div class="image-container">', unsafe_allow_html=True)
-st.image(image_url, width=None)
+st.image("https://hms.harvard.edu/sites/default/files/media/DNA-850.jpg", width=None, caption="DNA Structure")
 st.markdown("</div>", unsafe_allow_html=True)
 
-# Page title
+# Page title with a gradient background
 st.title("Helical Hues Haven")
+st.markdown('<div class="title-container"></div>', unsafe_allow_html=True)
 
 # User choice: Sign Up or Sign In
 choice = st.radio("", ["Sign Up", "Sign In"])
@@ -53,19 +65,16 @@ if choice == "Sign Up":
     signup_username = st.text_input("Enter your username for signup", key="signup_username")
     signup_password = st.text_input("Enter your password for signup", type="password", key="signup_password")
 
-    # Additional details
-    user_type = st.selectbox("Select your user type:", ["Student", "Researcher", "Academic"])
-    phone_number = st.text_input("Enter your phone number:")
-    email = st.text_input("Enter your email:")
-    age = st.number_input("Enter your age:", min_value=0, max_value=150)
-    gender = st.radio("Select your gender:", ["Male", "Female", "Other"])
+    # Additional details with improved styling
+    with st.form("signup-form"):
+        st.text("Additional Details")
+        user_type = st.selectbox("Select your user type:", ["Student", "Researcher", "Academic"])
+        phone_number = st.text_input("Enter your phone number:")
+        email = st.text_input("Enter your email:")
+        age = st.number_input("Enter your age:", min_value=0, max_value=150)
+        gender = st.radio("Select your gender:", ["Male", "Female", "Other"])
 
-    signup_button = st.button("Sign Up")
-
-    if signup_button:
-        # Add your sign-up logic here
-        # You can access the collected data like signup_username, signup_password, user_type, phone_number, email, age, gender
-        st.success("Account created successfully!")
+        signup_button = st.form_submit_button("Sign Up")
 
 # Sign-in section
 elif choice == "Sign In":
@@ -81,12 +90,3 @@ elif choice == "Sign In":
         # You can access the collected data like signin_identifier and signin_password
         st.success("Sign in successful!")
 
-# Footer
-st.markdown(
-    """
-    <div style="position: fixed; bottom: 0; width: 100%; text-align: center; padding: 10px; color: white;">
-        © 2023 Purple Auth. All rights reserved.
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
