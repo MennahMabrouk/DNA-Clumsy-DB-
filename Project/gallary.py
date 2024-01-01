@@ -14,18 +14,22 @@ dna_data = {
     'Sequence': ['ATCGATCG', 'GCTAGCTA', 'TAGCTAGC']
 }
 
-
-df = pd.DataFrame(dna_data)
+# Create a DataFrame with potentially different lengths
+df = pd.DataFrame({key: pd.Series(value) for key, value in dna_data.items()})
 
 def display_gallery():
     st.title("DNA Gallery")
 
     for index, row in df.iterrows():
         # Display DNA images and names in side windows
-        col1, col2 = st.columns(2)  # Use st.columns() instead of st.beta_columns()
+        col1, col2 = st.columns(2)
+
         with col1:
-            image = Image.open(row['Image_Path'])
-            st.image(image, caption=row['Name'], use_column_width=True)
+            if 'Image_Path' in row:
+                image_paths = row['Image_Path']
+                for path in image_paths:
+                    image = Image.open(path)
+                    st.image(image, caption=row['Name'], use_column_width=True)
 
         with col2:
             st.write(f"**{row['Name']}**")
@@ -37,13 +41,9 @@ def display_gallery():
 def display_dna_page(dna_entry):
     st.title(f"{dna_entry['Name']} Details")
 
-    # Display the full DNA image with all info and sequences
-    image = Image.open(dna_entry['Image_Path'])
-    st.image(image, caption=dna_entry['Name'], use_column_width=True)
-
     # Display other DNA information
-    st.write(f"**Sequence:** {dna_entry['Sequence']}")
-    # Add more information as needed
+    if 'Sequence' in dna_entry:
+        st.write(f"**Sequence:** {dna_entry['Sequence']}")
 
 # Run the app
 if __name__ == '__main__':
