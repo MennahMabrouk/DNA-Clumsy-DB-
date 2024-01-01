@@ -29,17 +29,12 @@ def show():
         if password != password_repeat:
             st.warning("Passwords do not match. Please re-enter.")
         elif len(password) < 8 or not any(char.isupper() for char in password) or not re.search("[@#$%^&+=]", password):
-            st.warning("Password must be at least 8 characters long and contain at least one uppercase letter and one symbol.")
-            
-            # Display password requirements using st.info
-            info_placeholder = st.empty()
-            with info_placeholder:
-                st.info(
-                    "Password Requirements:"
+            st.warning("Password Requirements: \n"
                     "\n • At least 8 characters long"
                     "\n • At least one uppercase letter"
                     "\n • At least one symbol (@#$%^&+=)"
                 )
+            
         else:
             st.success("Password is valid.")
 
