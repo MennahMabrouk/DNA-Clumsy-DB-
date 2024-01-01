@@ -3,6 +3,9 @@ from Project.theme_utils import set_theme
 import re
 
 def show():
+    # Set theme to "dark"
+    set_theme("dark")
+
     st.title("Sign In/Sign Up")
 
     # User choice: Sign Up or Sign In
@@ -27,12 +30,16 @@ def show():
             st.warning("Passwords do not match. Please re-enter.")
         elif len(password) < 8 or not any(char.isupper() for char in password) or not re.search("[@#$%^&+=]", password):
             st.warning("Password must be at least 8 characters long and contain at least one uppercase letter and one symbol.")
-            st.info(
-                "Password Requirements:"
-                "\n • At least 8 characters long"
-                "\n • At least one uppercase letter"
-                "\n • At least one symbol (@#$%^&+=)"
-            )
+            
+            # Display password requirements using st.info
+            info_placeholder = st.empty()
+            with info_placeholder:
+                st.info(
+                    "Password Requirements:"
+                    "\n • At least 8 characters long"
+                    "\n • At least one uppercase letter"
+                    "\n • At least one symbol (@#$%^&+=)"
+                )
         else:
             st.success("Password is valid.")
 
@@ -46,8 +53,8 @@ def show():
         # Assuming gene_gallery() is defined somewhere
         # gene_gallery()
 
-# Set default theme
-set_theme("day")
+# Set default theme to "dark"
+set_theme("dark")
 
 # Call the show function directly
 show()
