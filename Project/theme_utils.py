@@ -1,7 +1,42 @@
 # theme_utils.py
 import streamlit as st
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from PIL import Image
+from io import BytesIO
+
+def create_wave_pattern(amplitude, frequency, phase_shift, x_values):
+    return amplitude * np.sin(frequency * x_values + phase_shift)
+
+def generate_wave_background():
+    fig, ax = plt.subplots(figsize=(10, 2))
+
+    x_values = np.linspace(0, 10, 1000)
+    wave1 = create_wave_pattern(0.5, 2, 0, x_values)
+    wave2 = create_wave_pattern(0.3, 1, np.pi / 2, x_values)
+    wave3 = create_wave_pattern(0.2, 1.5, np.pi / 4, x_values)
+
+    combined_wave = wave1 + wave2 + wave3
+
+    ax.plot(x_values, combined_wave, color='white')
+    ax.set_xticks([])
+    ax.set_yticks([])
+    ax.set_xticklabels([])
+    ax.set_yticklabels([])
+    ax.set_facecolor((0, 0, 0, 0))
+
+    buffer = BytesIO()
+    canvas = FigureCanvas(fig)
+    canvas.print_png(buffer)
+    plt.close(fig)
+
+    return buffer
 
 def set_theme(theme):
+    # Call generate_wave_background to get the dynamic wave background
+    wave_image = generate_wave_background()
+
     if theme == "day":
         primary_color = "#8b00ff"  # Purple
         background_color = "#ffffff"  # White
@@ -20,13 +55,15 @@ def set_theme(theme):
     else:
         raise ValueError("Invalid theme")
 
-    # Apply theme styles
+    # Apply theme styles along with the dynamic wave background
     st.markdown(
         f"""
         <style>
         body {{
-            background-color: {background_color} !important;
-            color: {text_color};
+            background: url('data:image/png;base64,{wave_image.getvalue().decode("utf-8")}');
+            background-size: cover;
+            background-attachment: fixed;
+            color: {text_color} !important;
         }}
 
         .stApp {{
