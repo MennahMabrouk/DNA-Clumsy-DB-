@@ -1,7 +1,8 @@
 import streamlit as st
 
-# Set the theme colors
-def set_theme(theme):
+def show():
+    st.title("Test Page")
+    st.write("This is the content of the second page.")
     if theme == "day":
         primary_color = "#8b00ff"  # Purple
         background_color = "#ffffff"  # White
