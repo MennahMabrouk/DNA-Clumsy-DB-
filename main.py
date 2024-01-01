@@ -1,6 +1,6 @@
 # Project/main.py
 import streamlit as st
-from Project import signing
+from Project import signing, gallary 
 from Project.theme_utils import set_theme
 
 # Set default theme
@@ -14,7 +14,7 @@ if st.button("Toggle Theme"):
     st.session_state.theme = new_theme
 
 # Sidebar navigation
-page = st.sidebar.selectbox("Select Page", ["Home", "Signing"])
+page = st.sidebar.selectbox("Select Page", ["Home", "Signing", "DNA Gallery"])  # Add "DNA Gallery" to the options
 
 if page == "Home":
     # Display image at the beginning with caption
@@ -25,9 +25,14 @@ if page == "Home":
     # Page title with a gradient background
     st.title("Helical Hues Haven")
     st.markdown('<div class="title-container"></div>', unsafe_allow_html=True)
+
 elif page == "Signing":
     # Call the signing.py file in the project directory
     signing.show()
-    
+
+elif page == "DNA Gallery":
+    # Call the display_gallery function from gallary.py
+    gallary.display_gallery()
+
 else:
     st.write("Page not found")
