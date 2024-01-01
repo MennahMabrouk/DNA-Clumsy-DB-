@@ -64,7 +64,7 @@ if st.button("Toggle Theme"):
     st.session_state.theme = new_theme
 
 # Sidebar navigation
-page = st.sidebar.selectbox("Select Page", ["test", "About", "Contact"])
+page = st.sidebar.selectbox("Select Page", ["Home", "Test", "Contact"])
 
 # Display content based on selected page
 if page == "Home":
@@ -76,10 +76,9 @@ if page == "Home":
     # Page title with a gradient background
     st.title("Helical Hues Haven")
     st.markdown('<div class="title-container"></div>', unsafe_allow_html=True)
-elif page == "About":
-    st.title("About Us")
-    st.write("Welcome to Helical Hues Haven! We are dedicated to exploring the mysteries of DNA.")
-    # Add more content for the "About" page as needed
+elif page == "Test":
+    # Call the test.py file in the project directory
+    test.show()
 elif page == "Contact":
     st.title("Contact Us")
     st.write("Feel free to reach out to us for any inquiries or collaborations.")
