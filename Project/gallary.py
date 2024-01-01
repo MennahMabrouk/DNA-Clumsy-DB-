@@ -3,7 +3,6 @@ import pandas as pd
 from PIL import Image
 import requests
 from io import BytesIO
-import matplotlib.pyplot as plt
 import numpy as np
 
 # Set page config first
@@ -52,16 +51,13 @@ def display_dna_page(dna_entry):
     if 'Sequence' in dna_entry:
         st.write(f"**Sequence:** {dna_entry['Sequence']}")
 
-    # Create a simple plot using matplotlib
+    # Create a simple plot using Streamlit's line_chart
     x = np.arange(0, 10, 0.1)
     y = np.sin(x)
 
-    fig, ax = plt.subplots()
-    ax.plot(x, y)
-    ax.set_title("Sine Wave")
+    data = pd.DataFrame({"x": x, "y": y})
 
-    # Display the plot in Streamlit
-    st.pyplot(fig)
+    st.line_chart(data.set_index("x"))
 
 # Run the app
 if __name__ == '__main__':
