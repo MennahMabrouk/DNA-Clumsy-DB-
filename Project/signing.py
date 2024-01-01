@@ -44,7 +44,7 @@ def show():
             st.success("Password is valid.")
 
     # Display Sign Up button for both cases
-    st.button("Sign Up" if choice == "Sign Up" else "Sign In")
+    st.button("Submit" if choice == "Sign Up" else "Sign In")
 
     # Display success message after Sign In
     if st.button("Sign In") and choice == "Sign In":
