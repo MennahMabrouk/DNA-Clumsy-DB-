@@ -19,11 +19,11 @@ def show():
         username = st.text_input("Username for signup")
         password = st.text_input("Password for signup", type="password")
         password_repeat = st.text_input("Repeat Password for signup", type="password")
-        user_type = st.selectbox("User type:", ["Student", "Researcher", "Academic"])
+        user_type = st.selectbox("User type:", ["Student", "Researcher", "Academic","Admin"])
         phone_number = st.text_input("Phone number:")
         email = st.text_input("Email:")
         age = st.number_input("Age:", min_value=0, max_value=150)
-        gender = st.radio("Gender:", ["Male", "Female", "Other"])
+        gender = st.radio("Gender:", ["Male", "Female"])
 
         # Password confirmation and validation for Sign Up
         if password != password_repeat:
