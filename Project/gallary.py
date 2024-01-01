@@ -25,9 +25,9 @@ def display_gallery():
 
     for index, row in df.iterrows():
         # Display DNA images and names in a single row
-        container = st.beta_container()
+        col1, col2 = st.beta_columns(2)
 
-        with container:
+        with col1:
             st.write(f"**{row['Name']}**")
 
         if 'Image_Path' in row:
@@ -38,13 +38,13 @@ def display_gallery():
                 if parsed_url.scheme and parsed_url.netloc:
                     response = requests.get(path)
                     image = Image.open(BytesIO(response.content))
-                    st.image(image, caption=row['Name'], use_container_width=True)
+                    st.image(image, caption=row['Name'], use_column_width=True)
                 else:
                     st.write(f"Invalid URL for {row['Name']}")
 
         # Add a click event to open a new page for each DNA entry
         button_key = f"View {row['Name']}"
-        if st.button(button_key):
+        if col1.button(button_key):
             display_dna_page(row)
 
 def display_dna_page(dna_entry):
