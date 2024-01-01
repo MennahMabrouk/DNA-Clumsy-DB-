@@ -4,8 +4,6 @@ from PIL import Image
 import requests
 from io import BytesIO
 
-import streamlit as st
-
 # Set page config first
 st.set_page_config(page_title="DNA Gallery", page_icon="🧬", layout="wide")
 
@@ -22,27 +20,27 @@ df = pd.DataFrame(gallery_data)
 def display_gallery():
     st.title("DNA Gallery")
 
-    for index, row in df.iterrows():
-        # Display DNA images and names in a single row
-        col1, col2 = st.columns(2)
+    # Display DNA images in a grid view
+    cols = st.columns(3)  # Adjust the number of columns as needed
 
-        with col1:
+    for index, row in df.iterrows():
+        with cols[index % 3]:
             st.write(f"**{row['Name']}**")
 
-        if 'Image_Path' in row:
-            image_url = row['Image_Path']
+            if 'Image_Path' in row:
+                image_url = row['Image_Path']
 
-            response = requests.get(image_url)
-            if response.status_code == 200:
-                image = Image.open(BytesIO(response.content))
-                # Adjust the image size for the gallery-like view
-                st.image(image, caption=row['Name'], width=300, use_column_width=False)
-            else:
-                st.write(f"Failed to retrieve image for {row['Name']}")
+                response = requests.get(image_url)
+                if response.status_code == 200:
+                    image = Image.open(BytesIO(response.content))
+                    # Adjust the image size for the grid view
+                    st.image(image, caption=row['Name'], width=300, use_column_width=False)
+                else:
+                    st.write(f"Failed to retrieve image for {row['Name']}")
 
         # Add a click event to open a new page for each DNA entry
         button_key = f"View {row['Name']}"
-        if col1.button(button_key):
+        if cols[index % 3].button(button_key):
             display_dna_page(row)
 
 def display_dna_page(dna_entry):
@@ -55,3 +53,4 @@ def display_dna_page(dna_entry):
 # Run the app
 if __name__ == '__main__':
     display_gallery()
+
