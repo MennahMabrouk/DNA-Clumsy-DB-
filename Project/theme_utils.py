@@ -12,6 +12,11 @@ def set_theme(theme):
         background_color = "#000000"  # Black
         text_color = "#ffffff"  # White
         secondary_color = "#e68a00"  # Dark Yellow
+    elif theme == "dark_purple":
+        primary_color = "#4b0082"  # Dark Purple
+        background_color = "#1E1E1E"  # Dark background
+        text_color = "#ffffff"  # White text
+        secondary_color = "#800080"  # Purple
     else:
         raise ValueError("Invalid theme")
 
