@@ -14,24 +14,10 @@ if st.button("Toggle Theme"):
     st.session_state.theme = new_theme
 
 # Sidebar navigation
-page = st.sidebar.selectbox("Select Page", ["Home", "signing", "Contact"])
+page = st.sidebar.selectbox("Select Page", ["signing"])
 
-# Display content based on selected page
-if page == "Home":
-    # Display image at the beginning with caption
-    st.markdown('<div class="image-container">', unsafe_allow_html=True)
-    st.image("https://hms.harvard.edu/sites/default/files/media/DNA-850.jpg", width=None, caption="DNA Structure")
-    st.markdown("</div>", unsafe_allow_html=True)
-
-    # Page title with a gradient background
-    st.title("Helical Hues Haven")
-    st.markdown('<div class="title-container"></div>', unsafe_allow_html=True)
 elif page == "signing":
-    # Call the show function directly from signing.py
     signing.show()
-elif page == "Contact":
-    st.title("Contact Us")
-    st.write("Feel free to reach out to us for any inquiries or collaborations.")
-    # Add more content for the "Contact" page as needed
+
 else:
     st.write("Page not found")  # Handle the case when none of the pages match
