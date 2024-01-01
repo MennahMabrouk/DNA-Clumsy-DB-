@@ -14,10 +14,20 @@ if st.button("Toggle Theme"):
     st.session_state.theme = new_theme
 
 # Sidebar navigation
-page = st.sidebar.selectbox("Select Page", ["Signing"])
+page = st.sidebar.selectbox("Select Page", ["Signing","Home"])
 
-# Display content based on selected page
-if page == "Signing":
-    signing.show()
+if page == "Home":
+    # Display image at the beginning with caption
+    st.markdown('<div class="image-container">', unsafe_allow_html=True)
+    st.image("https://hms.harvard.edu/sites/default/files/media/DNA-850.jpg", width=None, caption="DNA Structure")
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # Page title with a gradient background
+    st.title("Helical Hues Haven")
+    st.markdown('<div class="title-container"></div>', unsafe_allow_html=True)
+elif page == "Test":
+    # Call the test.py file in the project directory
+    test.show()
+    
 else:
     st.write("Page not found")  
