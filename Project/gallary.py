@@ -25,7 +25,7 @@ def display_gallery():
 
     for index, row in df.iterrows():
         # Display DNA images and names in a single row
-        col1, col2 = st.beta_columns(2)
+        col1, col2 = st.columns(2)
 
         with col1:
             st.write(f"**{row['Name']}**")
