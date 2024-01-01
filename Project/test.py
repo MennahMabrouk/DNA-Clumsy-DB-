@@ -2,8 +2,7 @@ import streamlit as st
 from Project.theme_utils import set_theme
 
 def show():
-    st.title("Test Page")
-    st.write("This is the content of the second page.")
+    st.title("Sign In/ Sign Up")
 
     # Day and Night Theme Toggle Inside Show Function
     if st.button("Toggle Theme Inside Show Function"):
@@ -12,8 +11,6 @@ def show():
         set_theme(new_theme)
         st.session_state.theme = new_theme
 
-# Navigation menu in the sidebar
-selected_page = st.sidebar.radio("Select a page", ["Sign Up", "Sign In"])
 
 # Page title with a gradient background
 st.title("Helical Hues Haven")
