@@ -4,6 +4,8 @@ from PIL import Image
 import requests
 from io import BytesIO
 
+import streamlit as st
+
 # Set page config first
 st.set_page_config(page_title="DNA Gallery", page_icon="🧬", layout="wide")
 
