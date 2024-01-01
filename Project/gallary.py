@@ -3,6 +3,7 @@ import pandas as pd
 from PIL import Image
 import requests
 from io import BytesIO
+import plotly.express as px
 
 # Set page config first
 st.set_page_config(page_title="DNA Gallery", page_icon="🧬", layout="wide")
@@ -20,35 +21,29 @@ df = pd.DataFrame(gallery_data)
 def display_gallery():
     st.title("DNA Gallery")
 
+    # Create a figure using plotly express
+    fig = px.imshow()
+
+    # Iterate through each DNA entry and add it to the figure
     for index, row in df.iterrows():
-        # Display DNA images and names in a single row
-        col1, col2 = st.columns(2)
+        image_url = row['Image_Path']
+        response = requests.get(image_url)
+        if response.status_code == 200:
+            image = Image.open(BytesIO(response.content))
+            # Resize the image for the grid view
+            image = image.resize((150, 150))
+            fig.add_trace(px.imshow(image).data[0])
 
-        with col1:
-            st.write(f"**{row['Name']}**")
+    # Update the layout to create a grid view
+    fig.update_layout(
+        width=800,
+        height=400,
+        grid=dict(rows=1, columns=len(df)),
+        margin=dict(l=0, r=0, b=0, t=0)
+    )
 
-        if 'Image_Path' in row:
-            image_url = row['Image_Path']
-
-            response = requests.get(image_url)
-            if response.status_code == 200:
-                image = Image.open(BytesIO(response.content))
-                # Adjust the image size for the gallery-like view
-                st.image(image, caption=row['Name'], width=300, use_column_width=False)
-            else:
-                st.write(f"Failed to retrieve image for {row['Name']}")
-
-        # Add a click event to open a new page for each DNA entry
-        button_key = f"View {row['Name']}"
-        if col1.button(button_key):
-            display_dna_page(row)
-
-def display_dna_page(dna_entry):
-    st.title(f"{dna_entry['Name']} Details")
-
-    # Display other DNA information
-    if 'Sequence' in dna_entry:
-        st.write(f"**Sequence:** {dna_entry['Sequence']}")
+    # Show the grid view
+    st.plotly_chart(fig)
 
 # Run the app
 if __name__ == '__main__':
