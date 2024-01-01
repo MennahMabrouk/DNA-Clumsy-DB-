@@ -6,7 +6,7 @@ def show():
     # Set theme to "dark_purple"
     set_theme("dark_purple")
 
-    st.title("Sign In/Sign Up")
+    st.title("Select an Option")
 
     # User choice: Sign Up or Sign In
     choice = st.radio("", ["Sign Up", "Sign In"])
