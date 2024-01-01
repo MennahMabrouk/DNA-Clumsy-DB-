@@ -1,5 +1,6 @@
 import streamlit as st
 from project import test
+from test import show
 
 # Set the theme colors
 def set_theme(theme):
