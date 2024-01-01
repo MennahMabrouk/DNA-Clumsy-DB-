@@ -4,3 +4,4 @@ Pillow==8.3.2
 biopython==1.79
 matplotlib==3.4.3
 plotly==5.5.0
+base64==1.7.1
