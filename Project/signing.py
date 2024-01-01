@@ -3,8 +3,8 @@ from Project.theme_utils import set_theme
 import re
 
 def show():
-    # Set theme to "dark"
-    set_theme("dark")
+    # Set theme to "dark_purple"
+    set_theme("dark_purple")
 
     st.title("Sign In/Sign Up")
 
@@ -53,8 +53,8 @@ def show():
         # Assuming gene_gallery() is defined somewhere
         # gene_gallery()
 
-# Set default theme to "dark"
-set_theme("dark")
+# Set default theme to "dark_purple"
+set_theme("dark_purple")
 
 # Call the show function directly
 show()
