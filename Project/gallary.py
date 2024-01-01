@@ -18,7 +18,7 @@ def display_gallery():
         {"Name": "DNA3", "Image_Path": "https://w0.peakpx.com/wallpaper/310/101/HD-wallpaper-artistic-dna-structure.jpg", "Sequence": "TAGCTAGC"},
         {"Name": "DNA4", "Image_Path": "https://w0.peakpx.com/wallpaper/611/928/HD-wallpaper-dna-molecule-blue-neon-dna-deoxyribonucleic-acid-dna-nucleic-acid-structure-blue-science-background-medicine-blue-background-science-concepts-blue-neon-molecule-black-background-with-dna.jpg", "Sequence": "ATCGATCG"},
         {"Name": "DNA5", "Image_Path": "https://w0.peakpx.com/wallpaper/548/840/HD-wallpaper-blue-science-background-dna-molecule-background-chemistry-background-blue-neon-background-science-texture-dna-concepts.jpg", "Sequence": "GCTAGCTA"},
-        {"Name": "DNA6", "Image_Path": "https://w0.peakpx.com/wallpaper/659/633/HD-wallpaper-3d-molecule-dna-biology-chemistry-molecule.jpg", "Sequence": "TAGCTAGC"},
+        {"Name": "DNA6", "Image_Path": "https://w0.peakpx.com/wallpaper/659/633/HD-wallpaper-3d-molecule-dna-biology-chemistry-molecule.jpg", "Sequence": "TAGCTAGCAAAAAAAAAAAAA"},
     ]
 
     # Create a DataFrame from the gallery_data
