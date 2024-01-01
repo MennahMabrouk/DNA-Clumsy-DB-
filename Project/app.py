@@ -1,6 +1,6 @@
 import streamlit as st
-from project import test
-from theme_utils import set_theme
+from Project import test
+from Project.theme_utils import set_theme
 
 # Day and Night Theme Toggle
 if st.button("Toggle Theme"):
