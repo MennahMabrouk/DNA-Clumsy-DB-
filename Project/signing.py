@@ -43,20 +43,20 @@ def show():
             # Additional actions for Sign Up
             pass
 
-# Sign-in section
-if choice == "Sign In":
-    st.subheader("Sign In")
+    # Sign-in section - corrected indentation
+    if choice == "Sign In":
+        st.subheader("Sign In")
 
-    # Allow user to sign in by email or username
-    signin_identifier = st.text_input("Email or username")
-    signin_password = st.text_input("Password for signin", type="password")
-    signin_button = st.button("Sign In")
+        # Allow user to sign in by email or username
+        signin_identifier = st.text_input("Email or username")
+        signin_password = st.text_input("Password for signin", type="password")
+        signin_button = st.button("Sign In")
 
-    # Display gallery after sign in
-    if signin_button:
-        st.success("Sign in successful!")
-        st.markdown("<h2>Welcome to the DNA Gallery!</h2>", unsafe_allow_html=True)
-        gene_gallery()
+        # Display gallery after sign in
+        if signin_button:
+            st.success("Sign in successful!")
+            st.markdown("<h2>Welcome to the DNA Gallery!</h2>", unsafe_allow_html=True)
+            gene_gallery()
 
 # Set default theme to "dark_purple"
 set_theme("dark_purple")
