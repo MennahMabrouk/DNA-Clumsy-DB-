@@ -51,3 +51,4 @@ set_theme("day")
 
 # Call the show function directly
 show()
+
