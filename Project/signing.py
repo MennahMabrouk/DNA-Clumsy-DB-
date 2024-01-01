@@ -49,13 +49,6 @@ def show():
         # Allow user to sign in by email or username
         signin_identifier = st.text_input("Email or username")
         signin_password = st.text_input("Password for signin", type="password")
-
-        # Password validation message
-        st.text("Password Requirements: \n"
-                "\n • At least 8 characters long"
-                "\n • At least one uppercase letter"
-                "\n • At least one symbol (@#$%^&+=)")
-
         signin_button = st.button("Sign In")
 
         # Display gallery after sign in
