@@ -1,6 +1,5 @@
-# Project/test.py
 import streamlit as st
-from project.theme_utils import set_theme
+from Project.theme_utils import set_theme
 
 def show():
     st.title("Test Page")
@@ -14,6 +13,7 @@ def show():
         st.session_state.theme = new_theme
 
 
+# This part should be placed within a Streamlit widget context
 # Day and Night Theme Toggle
 if st.button("Toggle Theme"):
     current_theme = st.session_state.get("theme", "day")
