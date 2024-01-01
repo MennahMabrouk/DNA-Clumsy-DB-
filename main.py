@@ -1,8 +1,7 @@
 # Project/main.py
 import streamlit as st
-from Project import signing
+from Project import signing  
 from Project.theme_utils import set_theme
-
 # Set default theme
 set_theme("day")
 
