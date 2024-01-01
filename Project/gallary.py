@@ -3,6 +3,7 @@ import pandas as pd
 from PIL import Image
 import requests
 from io import BytesIO
+from urllib.parse import urlparse
 
 # Sample DNA data (you can replace this with your actual data)
 # Sample DNA data with direct image links
@@ -30,10 +31,14 @@ def display_gallery():
             if 'Image_Path' in row:
                 image_paths = row['Image_Path']
                 for path in image_paths:
-                    # Download image from URL
-                    response = requests.get(path)
-                    image = Image.open(BytesIO(response.content))
-                    st.image(image, caption=row['Name'], use_column_width=True)
+                    # Check if the URL has a valid schema
+                    parsed_url = urlparse(path)
+                    if parsed_url.scheme and parsed_url.netloc:
+                        response = requests.get(path)
+                        image = Image.open(BytesIO(response.content))
+                        st.image(image, caption=row['Name'], use_column_width=True)
+                    else:
+                        st.write(f"Invalid URL for {row['Name']}")
 
         with col2:
             st.write(f"**{row['Name']}**")
