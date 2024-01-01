@@ -44,7 +44,8 @@ def display_gallery():
                         st.write(f"Invalid URL for {row['Name']}")
 
         # Add a click event to open a new page for each DNA entry
-        if col1.button(f"View {row['Name']}"):
+        button_key = f"View {row['Name']}"
+        if st.button(button_key):
             display_dna_page(row)
 
 def display_dna_page(dna_entry):
