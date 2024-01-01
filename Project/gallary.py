@@ -42,4 +42,3 @@ def display_dna_page(dna_entry):
 # Run the app
 if __name__ == '__main__':
     display_gallery()
-
