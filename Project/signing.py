@@ -23,7 +23,12 @@ def show():
         age = st.number_input("Age:", min_value=0, max_value=150)
         gender = st.radio("Gender:", ["Male", "Female", "Other"])
 
-        # Password confirmation and validation for Sign Up
+        # Password validation message
+        st.text("Password Requirements: \n"
+                "\n • At least 8 characters long"
+                "\n • At least one uppercase letter"
+                "\n • At least one symbol (@#$%^&+=)")
+
         if st.checkbox("Show Passwords"):
             password = st.text_input("Password for signup", type="password")
             password_repeat = st.text_input("Repeat Password for signup", type="password")
@@ -35,12 +40,6 @@ def show():
             st.warning("Passwords do not match. Please re-enter.")
         else:
             st.success("Passwords match.")
-
-        # Password validation message
-        st.text("Password Requirements: \n"
-                "\n • At least 8 characters long"
-                "\n • At least one uppercase letter"
-                "\n • At least one symbol (@#$%^&+=)")
 
         # Display Sign Up button
         if st.button("Sign Up"):
@@ -62,6 +61,13 @@ def show():
             st.success("Sign in successful!")
             st.markdown("<h2>Welcome to the DNA Gallery!</h2>", unsafe_allow_html=True)
             gene_gallery()
+
+# Set default theme to "dark_purple"
+set_theme("dark_purple")
+
+# Call the show function directly
+show()
+
 
 # Set default theme to "dark_purple"
 set_theme("dark_purple")
