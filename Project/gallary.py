@@ -1,17 +1,18 @@
 import streamlit as st
 import pandas as pd
 from PIL import Image
+import requests
+from io import BytesIO
 
 # Sample DNA data (you can replace this with your actual data)
 # Sample DNA data with direct image links
 dna_data = {
     'Name': ['DNA1', 'DNA2', 'DNA3'],
-'Image_Path': [
-    'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwirecase3d.com%2Fproducts%2Fdna-3d-model&psig=AOvVaw0hqp_y50IY2MsJs68m95ST&ust=1704177903344000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNippNrLu4MDFQAAAAAdAAAAABAD',
-    'https://www.google.com/url?sa=i&url=https%3A%2F%2Fstock.adobe.com%2Fimages%2Fdna-3d-dna-strands%2F82359905&psig=AOvVaw0hqp_y50IY2MsJs68m95ST&ust=1704177903344000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNippNrLu4MDFQAAAAAdAAAAABAP',
-    'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.istockphoto.com%2Fphotos%2F3d-dna&psig=AOvVaw0hqp_y50IY2MsJs68m95ST&ust=1704177903344000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNippNrLu4MDFQAAAAAdAAAAABAV'
-],
-
+    'Image_Path': [
+        'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwirecase3d.com%2Fproducts%2Fdna-3d-model&psig=AOvVaw0hqp_y50IY2MsJs68m95ST&ust=1704177903344000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNippNrLu4MDFQAAAAAdAAAAABAD',
+        'https://www.google.com/url?sa=i&url=https%3A%2F%2Fstock.adobe.com%2Fimages%2Fdna-3d-dna-strands%2F82359905&psig=AOvVaw0hqp_y50IY2MsJs68m95ST&ust=1704177903344000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNippNrLu4MDFQAAAAAdAAAAABAP',
+        'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.istockphoto.com%2Fphotos%2F3d-dna&psig=AOvVaw0hqp_y50IY2MsJs68m95ST&ust=1704177903344000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNippNrLu4MDFQAAAAAdAAAAABAV'
+    ],
     'Sequence': ['ATCGATCG', 'GCTAGCTA', 'TAGCTAGC']
 }
 
@@ -29,7 +30,9 @@ def display_gallery():
             if 'Image_Path' in row:
                 image_paths = row['Image_Path']
                 for path in image_paths:
-                    image = Image.open(path)
+                    # Download image from URL
+                    response = requests.get(path)
+                    image = Image.open(BytesIO(response.content))
                     st.image(image, caption=row['Name'], use_column_width=True)
 
         with col2:
