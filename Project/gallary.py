@@ -5,24 +5,24 @@ import requests
 from io import BytesIO
 import numpy as np
 
-# Set page config first
-st.set_page_config(page_title="DNA Gallery", page_icon="🧬", layout="wide")
-
-# Sample DNA data (you can replace this with your actual data)
-gallery_data = [
-    {"Name": "DNA1", "Image_Path": "https://wirecase3d.com/cdn/shop/products/dna1.jpg?v=1532865464&width=823", "Sequence": "ATCGATCG"},
-    {"Name": "DNA2", "Image_Path": "https://w0.peakpx.com/wallpaper/511/206/HD-wallpaper-artistic-dna-structure-3d.jpg", "Sequence": "GCTAGCTA"},
-    {"Name": "DNA3", "Image_Path": "https://w0.peakpx.com/wallpaper/310/101/HD-wallpaper-artistic-dna-structure.jpg", "Sequence": "TAGCTAGC"},
-    {"Name": "DNA4", "Image_Path": "https://w0.peakpx.com/wallpaper/611/928/HD-wallpaper-dna-molecule-blue-neon-dna-deoxyribonucleic-acid-dna-nucleic-acid-structure-blue-science-background-medicine-blue-background-science-concepts-blue-neon-molecule-black-background-with-dna.jpg", "Sequence": "ATCGATCG"},
-    {"Name": "DNA5", "Image_Path": "https://w0.peakpx.com/wallpaper/548/840/HD-wallpaper-blue-science-background-dna-molecule-background-chemistry-background-blue-neon-background-science-texture-dna-concepts.jpg", "Sequence": "GCTAGCTA"},
-    {"Name": "DNA6", "Image_Path": "https://w0.peakpx.com/wallpaper/659/633/HD-wallpaper-3d-molecule-dna-biology-chemistry-molecule.jpg", "Sequence": "TAGCTAGC"},
-]
-
-# Create a DataFrame from the gallery_data
-df = pd.DataFrame(gallery_data)
+def set_page_configuration():
+    st.set_page_config(page_title="DNA Gallery", page_icon="🧬", layout="wide")
 
 def display_gallery():
     st.title("DNA Gallery")
+
+    # Sample DNA data (you can replace this with your actual data)
+    gallery_data = [
+        {"Name": "DNA1", "Image_Path": "https://wirecase3d.com/cdn/shop/products/dna1.jpg?v=1532865464&width=823", "Sequence": "ATCGATCG"},
+        {"Name": "DNA2", "Image_Path": "https://w0.peakpx.com/wallpaper/511/206/HD-wallpaper-artistic-dna-structure-3d.jpg", "Sequence": "GCTAGCTA"},
+        {"Name": "DNA3", "Image_Path": "https://w0.peakpx.com/wallpaper/310/101/HD-wallpaper-artistic-dna-structure.jpg", "Sequence": "TAGCTAGC"},
+        {"Name": "DNA4", "Image_Path": "https://w0.peakpx.com/wallpaper/611/928/HD-wallpaper-dna-molecule-blue-neon-dna-deoxyribonucleic-acid-dna-nucleic-acid-structure-blue-science-background-medicine-blue-background-science-concepts-blue-neon-molecule-black-background-with-dna.jpg", "Sequence": "ATCGATCG"},
+        {"Name": "DNA5", "Image_Path": "https://w0.peakpx.com/wallpaper/548/840/HD-wallpaper-blue-science-background-dna-molecule-background-chemistry-background-blue-neon-background-science-texture-dna-concepts.jpg", "Sequence": "GCTAGCTA"},
+        {"Name": "DNA6", "Image_Path": "https://w0.peakpx.com/wallpaper/659/633/HD-wallpaper-3d-molecule-dna-biology-chemistry-molecule.jpg", "Sequence": "TAGCTAGC"},
+    ]
+
+    # Create a DataFrame from the gallery_data
+    df = pd.DataFrame(gallery_data)
 
     # Define the number of columns and rows in the grid
     num_columns = 3
@@ -85,4 +85,6 @@ def display_dna_page(dna_entry):
 
 # Run the app
 if __name__ == '__main__':
+    set_page_configuration()
     display_gallery()
+
