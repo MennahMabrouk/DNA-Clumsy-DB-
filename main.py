@@ -14,7 +14,7 @@ if st.button("Toggle Theme"):
     st.session_state.theme = new_theme
 
 # Sidebar navigation
-page = st.sidebar.selectbox("Select Page", ["Signing","Home"])
+page = st.sidebar.selectbox("Select Page", ["Signing", "Home"])
 
 if page == "Home":
     # Display image at the beginning with caption
@@ -25,9 +25,8 @@ if page == "Home":
     # Page title with a gradient background
     st.title("Helical Hues Haven")
     st.markdown('<div class="title-container"></div>', unsafe_allow_html=True)
-elif page == "Test":
-    # Call the test.py file in the project directory
-    test.show()
-    
+elif page == "Signing":  
+    signing.show()
 else:
-    st.write("Page not found")  
+    st.write("Page not found")
+
