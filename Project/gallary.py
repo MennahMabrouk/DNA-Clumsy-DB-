@@ -25,11 +25,12 @@ def display_gallery():
 
     for index, row in df.iterrows():
         # Display DNA images and names in a single column
-        col = st.column()
+        col1, col2 = st.columns(2)
 
-        with col:
+        with col1:
             st.write(f"**{row['Name']}**")
 
+        with col2:
             if 'Image_Path' in row:
                 image_paths = row['Image_Path']
                 for path in image_paths:
@@ -43,7 +44,7 @@ def display_gallery():
                         st.write(f"Invalid URL for {row['Name']}")
 
         # Add a click event to open a new page for each DNA entry
-        if st.button(f"View {row['Name']}"):
+        if col1.button(f"View {row['Name']}"):
             display_dna_page(row)
 
 def display_dna_page(dna_entry):
