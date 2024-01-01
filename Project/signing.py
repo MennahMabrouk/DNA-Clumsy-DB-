@@ -15,6 +15,12 @@ def show():
     if choice == "Sign Up":
         st.subheader("Sign Up")
 
+        # Password validation message at the top
+        st.text("Password Requirements: \n"
+                "\n • At least 8 characters long"
+                "\n • At least one uppercase letter"
+                "\n • At least one symbol (@#$%^&+=)")
+
         # Necessary details for Sign Up
         username = st.text_input("Username for signup")
         user_type = st.selectbox("User type:", ["Student", "Researcher", "Academic"])
@@ -22,12 +28,6 @@ def show():
         email = st.text_input("Email:")
         age = st.number_input("Age:", min_value=0, max_value=150)
         gender = st.radio("Gender:", ["Male", "Female", "Other"])
-
-        # Password validation message
-        st.text("Password Requirements: \n"
-                "\n • At least 8 characters long"
-                "\n • At least one uppercase letter"
-                "\n • At least one symbol (@#$%^&+=)")
 
         # Create an empty space
         empty_space = st.empty()
@@ -67,4 +67,3 @@ set_theme("dark_purple")
 
 # Call the show function directly
 show()
-
