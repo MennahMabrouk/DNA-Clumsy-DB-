@@ -1,5 +1,6 @@
+# Project/test.py
 import streamlit as st
-from Project.theme_utils import set_theme
+from project.theme_utils import set_theme
 
 def show():
     st.title("Test Page")
