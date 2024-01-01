@@ -8,16 +8,13 @@ def show():
     # User choice: Sign Up or Sign In
     choice = st.radio("", ["Sign Up", "Sign In"])
 
-    # Common fields for both Sign Up and Sign In
-    identifier = st.text_input("Email or username")
-    password = st.text_input("Password", type="password")
-
     # Sign Up section
     if choice == "Sign Up":
         st.subheader("Sign Up")
 
         # Necessary details for Sign Up
         username = st.text_input("Username for signup")
+        password = st.text_input("Password for signup", type="password")
         password_repeat = st.text_input("Repeat Password for signup", type="password")
         user_type = st.selectbox("User type:", ["Student", "Researcher", "Academic"])
         phone_number = st.text_input("Phone number:")
@@ -25,7 +22,7 @@ def show():
         age = st.number_input("Age:", min_value=0, max_value=150)
         gender = st.radio("Gender:", ["Male", "Female", "Other"])
 
-        # Password confirmation and validation
+        # Password confirmation and validation for Sign Up
         if password != password_repeat:
             st.warning("Passwords do not match. Please re-enter.")
         elif len(password) < 8 or not any(char.isupper() for char in password) or not re.search("[@#$%^&+=]", password):
@@ -48,4 +45,5 @@ set_theme("day")
 
 # Call the show function directly
 show()
+
 
