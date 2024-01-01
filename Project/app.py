@@ -1,13 +1,7 @@
+# Project/main.py
 import streamlit as st
 from Project import test
 from Project.theme_utils import set_theme
-
-# Day and Night Theme Toggle
-if st.button("Toggle Theme"):
-    current_theme = st.session_state.get("theme", "day")
-    new_theme = "night" if current_theme == "day" else "day"
-    set_theme(new_theme)
-    st.session_state.theme = new_theme
 
 # Day and Night Theme Toggle
 if st.button("Toggle Theme"):
@@ -36,3 +30,4 @@ elif page == "Contact":
     st.title("Contact Us")
     st.write("Feel free to reach out to us for any inquiries or collaborations.")
     # Add more content for the "Contact" page as needed
+
