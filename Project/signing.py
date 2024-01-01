@@ -18,6 +18,7 @@ def show():
 
         # Necessary details for Sign Up
         username = st.text_input("Username for signup")
+        password_repeat = st.text_input("Repeat Password for signup", type="password")
         user_type = st.selectbox("User type:", ["Student", "Researcher", "Academic"])
         phone_number = st.text_input("Phone number:")
         email = st.text_input("Email:")
@@ -25,7 +26,6 @@ def show():
         gender = st.radio("Gender:", ["Male", "Female", "Other"])
 
         # Password confirmation and validation
-        password_repeat = st.text_input("Repeat Password", type="password")
         if password != password_repeat:
             st.warning("Passwords do not match. Please re-enter.")
         elif len(password) < 8 or not any(char.isupper() for char in password) or not re.search("[@#$%^&+=]", password):
