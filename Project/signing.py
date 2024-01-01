@@ -29,14 +29,12 @@ def show():
                 "\n • At least one uppercase letter"
                 "\n • At least one symbol (@#$%^&+=)")
 
-        # Use two separate columns for layout
-        col1, col2 = st.beta_columns(2)
+        # Create an empty space
+        empty_space = st.empty()
 
-        with col1:
-            password = st.text_input("Password for signup", type="password")
-
-        with col2:
-            password_repeat = st.text_input("Repeat Password for signup", type="password")
+        # Password inputs after the empty space
+        password = st.text_input("Password for signup", type="password")
+        password_repeat = st.text_input("Repeat Password for signup", type="password")
 
         if password != password_repeat:
             st.warning("Passwords do not match. Please re-enter.")
@@ -69,3 +67,4 @@ set_theme("dark_purple")
 
 # Call the show function directly
 show()
+
