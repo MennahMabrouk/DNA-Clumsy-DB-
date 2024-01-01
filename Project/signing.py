@@ -41,11 +41,6 @@ if choice == "Sign Up":
 
         signup_button = st.form_submit_button("Sign Up")
 
-    # Display gallery after sign up
-    if signup_button:
-        st.markdown("<h2>Welcome to the DNA Gallery!</h2>", unsafe_allow_html=True)
-        gene_gallery()
-
 # Sign-in section
 elif choice == "Sign In":
     st.subheader("Sign In")
@@ -57,8 +52,6 @@ elif choice == "Sign In":
 
     # Display gallery after sign in
     if signin_button:
-        # Add your sign-in logic here
-        # You can access the collected data like signin_identifier and signin_password
         st.success("Sign in successful!")
         st.markdown("<h2>Welcome to the DNA Gallery!</h2>", unsafe_allow_html=True)
         gene_gallery()
