@@ -5,6 +5,9 @@ import requests
 from io import BytesIO
 
 # Set page config first
+st.set_page_config()
+
+# Set page config first
 st.set_page_config(page_title="DNA Gallery", page_icon="🧬", layout="wide")
 
 # Sample DNA data (you can replace this with your actual data)
