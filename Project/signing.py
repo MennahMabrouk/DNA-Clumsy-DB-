@@ -28,14 +28,14 @@ def show():
         # Password confirmation and validation for Sign Up
         if password != password_repeat:
             st.warning("Passwords do not match. Please re-enter.")
+        elif len(password) < 8 or not any(char.isupper() for char in password) or not re.search("[@#$%^&+=]", password):
+            st.warning("Password Requirements: \n"
+                       "\n • At least 8 characters long"
+                       "\n • At least one uppercase letter"
+                       "\n • At least one symbol (@#$%^&+=)"
+                       )
         else:
-            st.success("Passwords match.")
-
-        # Password validation message
-        st.text("Password Requirements: \n"
-                "\n • At least 8 characters long"
-                "\n • At least one uppercase letter"
-                "\n • At least one symbol (@#$%^&+=)")
+            st.success("Password is valid.")
 
         # Display Sign Up button
         if st.button("Sign Up"):
@@ -49,6 +49,12 @@ def show():
         # Allow user to sign in by email or username
         signin_identifier = st.text_input("Email or username")
         signin_password = st.text_input("Password for signin", type="password")
+
+        # Password validation message
+        st.text("Password Requirements: \n"
+                "\n • At least 8 characters long"
+                "\n • At least one uppercase letter"
+                "\n • At least one symbol (@#$%^&+=)")
 
         signin_button = st.button("Sign In")
 
