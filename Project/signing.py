@@ -23,23 +23,24 @@ def show():
         age = st.number_input("Age:", min_value=0, max_value=150)
         gender = st.radio("Gender:", ["Male", "Female", "Other"])
 
-        # Password validation message
-        st.text("Password Requirements: \n"
-                "\n • At least 8 characters long"
-                "\n • At least one uppercase letter"
-                "\n • At least one symbol (@#$%^&+=)")
-
-        # Create an empty space
-        empty_space = st.empty()
-
-        # Password inputs after the empty space
-        password = st.text_input("Password for signup", type="password")
-        password_repeat = st.text_input("Repeat Password for signup", type="password")
+        # Password confirmation and validation for Sign Up
+        if st.checkbox("Show Passwords"):
+            password = st.text_input("Password for signup", type="password")
+            password_repeat = st.text_input("Repeat Password for signup", type="password")
+        else:
+            password = st.text_input("Password for signup", type="password")
+            password_repeat = st.text_input("Repeat Password for signup", type="password")
 
         if password != password_repeat:
             st.warning("Passwords do not match. Please re-enter.")
         else:
             st.success("Passwords match.")
+
+        # Password validation message
+        st.text("Password Requirements: \n"
+                "\n • At least 8 characters long"
+                "\n • At least one uppercase letter"
+                "\n • At least one symbol (@#$%^&+=)")
 
         # Display Sign Up button
         if st.button("Sign Up"):
