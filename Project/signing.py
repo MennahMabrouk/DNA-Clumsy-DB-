@@ -29,11 +29,13 @@ def show():
                 "\n • At least one uppercase letter"
                 "\n • At least one symbol (@#$%^&+=)")
 
-        if st.checkbox("Show Passwords"):
+        # Use two separate columns for layout
+        col1, col2 = st.beta_columns(2)
+
+        with col1:
             password = st.text_input("Password for signup", type="password")
-            password_repeat = st.text_input("Repeat Password for signup", type="password")
-        else:
-            password = st.text_input("Password for signup", type="password")
+
+        with col2:
             password_repeat = st.text_input("Repeat Password for signup", type="password")
 
         if password != password_repeat:
@@ -61,13 +63,6 @@ def show():
             st.success("Sign in successful!")
             st.markdown("<h2>Welcome to the DNA Gallery!</h2>", unsafe_allow_html=True)
             gene_gallery()
-
-# Set default theme to "dark_purple"
-set_theme("dark_purple")
-
-# Call the show function directly
-show()
-
 
 # Set default theme to "dark_purple"
 set_theme("dark_purple")
