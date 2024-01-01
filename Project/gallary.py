@@ -3,6 +3,8 @@ import pandas as pd
 from PIL import Image
 import requests
 from io import BytesIO
+from Bio.Seq import Seq
+from Bio.SeqUtils import GC
 
 # Set page config first
 st.set_page_config(page_title="DNA Gallery", page_icon="🧬", layout="wide")
@@ -49,8 +51,12 @@ def display_dna_page(dna_entry):
     # Display other DNA information
     if 'Sequence' in dna_entry:
         st.write(f"**Sequence:** {dna_entry['Sequence']}")
+        
+        # Use Biopython to calculate GC content
+        seq = Seq(dna_entry['Sequence'])
+        gc_content = GC(seq)
+        st.write(f"**GC Content:** {gc_content:.2f}%")
 
 # Run the app
 if __name__ == '__main__':
     display_gallery()
-
