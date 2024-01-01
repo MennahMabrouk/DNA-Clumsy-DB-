@@ -49,7 +49,6 @@ def display_gallery():
                             st.image(image, caption=df.iloc[index]['Name'], width=200, use_column_width=False)
                         else:
                             st.write(f"Failed to retrieve image for {df.iloc[index]['Name']}")
-                            print(f"Failed to retrieve image for {df.iloc[index]['Name']}. Status code: {response.status_code}")
 
                     # Add a click event to open a new page for each DNA entry
                     button_key = f"View {df.iloc[index]['Name']}"
@@ -59,20 +58,31 @@ def display_gallery():
 def display_dna_page(dna_entry):
     st.title(f"{dna_entry['Name']} Details")
 
-    # Display other DNA information
+    # Display DNA information
     if 'Sequence' in dna_entry:
         st.write(f"**Sequence:** {dna_entry['Sequence']}")
 
-    # Create a simple plot using Streamlit's line_chart
-    x = np.arange(0, 10, 0.1)
-    y = np.sin(x)
+        # Calculate nucleotide percentages
+        nucleotide_counts = {"A": 0, "T": 0, "C": 0, "G": 0}
+        total_nucleotides = len(dna_entry['Sequence'])
 
-    data = pd.DataFrame({"x": x, "y": y})
+        for nucleotide in dna_entry['Sequence']:
+            if nucleotide in nucleotide_counts:
+                nucleotide_counts[nucleotide] += 1
 
-    # Display the plot in Streamlit
-    st.line_chart(data.set_index("x"))
+        # Calculate percentages
+        percentages = {key: (count / total_nucleotides) * 100 for key, count in nucleotide_counts.items()}
+
+        st.write("**Nucleotide Percentages:**")
+        st.write(f"A: {percentages['A']:.2f}%")
+        st.write(f"T: {percentages['T']:.2f}%")
+        st.write(f"C: {percentages['C']:.2f}%")
+        st.write(f"G: {percentages['G']:.2f}%")
+
+        # Create a bar chart for nucleotide percentages
+        data = pd.DataFrame({"Nucleotide": list(percentages.keys()), "Percentage": list(percentages.values())})
+        st.bar_chart(data.set_index("Nucleotide"))
 
 # Run the app
 if __name__ == '__main__':
     display_gallery()
-
