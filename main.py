@@ -1,7 +1,8 @@
 # Project/main.py
 import streamlit as st
-from Project import signing  
+from Project import signing
 from Project.theme_utils import set_theme
+
 # Set default theme
 set_theme("day")
 
@@ -32,3 +33,5 @@ elif page == "Contact":
     st.title("Contact Us")
     st.write("Feel free to reach out to us for any inquiries or collaborations.")
     # Add more content for the "Contact" page as needed
+else:
+    st.write("Page not found")  # Handle the case when none of the pages match
