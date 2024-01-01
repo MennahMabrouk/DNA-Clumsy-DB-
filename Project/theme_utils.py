@@ -36,6 +36,9 @@ def generate_wave_background():
 def set_theme(theme):
     # Call generate_wave_background to get the dynamic wave background
     wave_image = generate_wave_background()
+    # Base64 encode the binary data of the wave image
+    wave_image_base64 = base64.b64encode(wave_image.getvalue()).decode("utf-8")
+
 
     if theme == "day":
         primary_color = "#8b00ff"  # Purple
