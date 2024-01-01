@@ -1,4 +1,3 @@
-Project/theme_utils.py
 # theme_utils.py
 import streamlit as st
 
@@ -21,10 +20,8 @@ def set_theme(theme):
     else:
         raise ValueError("Invalid theme")
 
-    # Apply theme styles
-    st.markdown(
-        f"""
-        <style>
+    # Define common styles
+    common_styles = f"""
         body {{
             background-color: {background_color} !important;
             color: {text_color};
@@ -57,8 +54,8 @@ def set_theme(theme):
         .title-container:hover {{
             background: linear-gradient(90deg, {secondary_color}, {primary_color});
         }}
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
+    """
+
+    # Apply theme styles
+    st.markdown(f"<style>{common_styles}</style>", unsafe_allow_html=True)
 
