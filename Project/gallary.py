@@ -3,6 +3,7 @@ import pandas as pd
 from PIL import Image
 import requests
 from io import BytesIO
+import matplotlib.pyplot as plt
 import numpy as np
 
 # Set page config first
