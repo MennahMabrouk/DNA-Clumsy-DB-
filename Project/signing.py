@@ -29,10 +29,7 @@ def show():
         age = st.number_input("Age:", min_value=0, max_value=150)
         gender = st.radio("Gender:", ["Male", "Female", "Other"])
 
-        # Create an empty space
-        empty_space = st.empty()
-
-        # Password inputs after the empty space
+        # Password inputs
         password = st.text_input("Password for signup", type="password")
         password_repeat = st.text_input("Repeat Password for signup", type="password")
 
