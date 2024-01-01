@@ -5,21 +5,12 @@ def show():
     st.title("Test Page")
     st.write("This is the content of the second page.")
 
-    # Day and Night Theme Toggle
+    # Day and Night Theme Toggle Inside Show Function
     if st.button("Toggle Theme Inside Show Function"):
         current_theme = st.session_state.get("theme", "day")
         new_theme = "night" if current_theme == "day" else "day"
         set_theme(new_theme)
         st.session_state.theme = new_theme
-
-
-# This part should be placed within a Streamlit widget context
-# Day and Night Theme Toggle
-if st.button("Toggle Theme Outside Show Function"):
-    current_theme = st.session_state.get("theme", "day")
-    new_theme = "night" if current_theme == "day" else "day"
-    set_theme(new_theme)
-    st.session_state.theme = new_theme
 
 # Navigation menu in the sidebar
 selected_page = st.sidebar.radio("Select a page", ["Sign Up", "Sign In"])
