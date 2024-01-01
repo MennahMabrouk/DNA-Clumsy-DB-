@@ -33,9 +33,3 @@ elif page == "Contact":
     st.title("Contact Us")
     st.write("Feel free to reach out to us for any inquiries or collaborations.")
     # Add more content for the "Contact" page as needed
-
-    signing.show()
-elif page == "Contact":
-    st.title("Contact Us")
-    st.write("Feel free to reach out to us for any inquiries or collaborations.")
-    # Add more content for the "Contact" page as needed
