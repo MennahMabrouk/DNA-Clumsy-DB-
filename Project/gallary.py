@@ -3,7 +3,8 @@ import pandas as pd
 from PIL import Image
 import requests
 from io import BytesIO
-import turtle
+import matplotlib.pyplot as plt
+import numpy as np
 
 # Set page config first
 st.set_page_config(page_title="DNA Gallery", page_icon="🧬", layout="wide")
@@ -51,24 +52,16 @@ def display_dna_page(dna_entry):
     if 'Sequence' in dna_entry:
         st.write(f"**Sequence:** {dna_entry['Sequence']}")
 
-    # Create a turtle graphics window
-    turtle_window = turtle.Screen()
-    
-    # Create a turtle
-    t = turtle.Turtle()
+    # Create a simple plot using matplotlib
+    x = np.arange(0, 10, 0.1)
+    y = np.sin(x)
 
-    # Draw a simple pattern (you can customize this)
-    t.forward(100)
-    t.left(90)
-    t.forward(100)
-    t.left(90)
-    t.forward(100)
-    t.left(90)
-    t.forward(100)
-    t.left(90)
+    fig, ax = plt.subplots()
+    ax.plot(x, y)
+    ax.set_title("Sine Wave")
 
-    # Close the turtle graphics window when the Streamlit app is closed
-    turtle_window.bye()
+    # Display the plot in Streamlit
+    st.pyplot(fig)
 
 # Run the app
 if __name__ == '__main__':
