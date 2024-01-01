@@ -43,10 +43,12 @@ def show():
         else:
             st.success("Password is valid.")
 
-    # Display Sign Up button for both cases
-    st.button("Submit" if choice == "Sign Up" else "Sign In")
+        # Display Sign Up button
+        if st.button("Sign Up"):
+            # Additional actions for Sign Up
+            pass
 
-    # Display success message after Sign In
+    # Display Sign In button
     if st.button("Sign In") and choice == "Sign In":
         st.success("Sign in successful!")
         st.markdown("<h2>Welcome to the DNA Gallery!</h2>", unsafe_allow_html=True)
@@ -58,4 +60,3 @@ set_theme("dark_purple")
 
 # Call the show function directly
 show()
-
