@@ -14,10 +14,10 @@ if st.button("Toggle Theme"):
     st.session_state.theme = new_theme
 
 # Sidebar navigation
-page = st.sidebar.selectbox("Select Page", ["signing"])
+page = st.sidebar.selectbox("Select Page", ["Signing"])
 
-elif page == "signing":
+# Display content based on selected page
+if page == "Signing":
     signing.show()
-
 else:
-    st.write("Page not found") 
+    st.write("Page not found")  
