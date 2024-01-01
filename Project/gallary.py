@@ -16,7 +16,7 @@ def display_gallery():
 
     for index, row in df.iterrows():
         # Display DNA images and names in side windows
-        col1, col2 = st.beta_columns(2)
+        col1, col2 = st.columns(2)  # Use st.columns() instead of st.beta_columns()
         with col1:
             image = Image.open(row['Image_Path'])
             st.image(image, caption=row['Name'], use_column_width=True)
@@ -38,3 +38,8 @@ def display_dna_page(dna_entry):
     # Display other DNA information
     st.write(f"**Sequence:** {dna_entry['Sequence']}")
     # Add more information as needed
+
+# Run the app
+if __name__ == '__main__':
+    display_gallery()
+
