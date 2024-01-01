@@ -5,6 +5,8 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from PIL import Image
 from io import BytesIO
+import base64
+
 
 def create_wave_pattern(amplitude, frequency, phase_shift, x_values):
     return amplitude * np.sin(frequency * x_values + phase_shift)
