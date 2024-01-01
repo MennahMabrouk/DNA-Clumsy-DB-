@@ -4,7 +4,29 @@ from PIL import Image
 import requests
 from io import BytesIO
 from urllib.parse import urlparse
+# CSS styles
+css = """
+    body {
+        font-family: 'Arial', sans-serif;
+    }
+    .gallery-container {
+        padding: 20px;
+    }
+    .dna-image {
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+    .dna-details {
+        margin-top: 20px;
+    }
+"""
 
+# Set page config
+st.set_page_config(page_title="DNA Gallery", page_icon="🧬", layout="wide")
+
+# Apply CSS styles
+st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 # Sample DNA data (you can replace this with your actual data)
 # Sample DNA data with direct image links
 dna_data = {
