@@ -49,6 +49,7 @@ def display_gallery():
                             st.image(image, caption=df.iloc[index]['Name'], width=200, use_column_width=False)
                         else:
                             st.write(f"Failed to retrieve image for {df.iloc[index]['Name']}")
+                            print(f"Failed to retrieve image for {df.iloc[index]['Name']}. Status code: {response.status_code}")
 
                     # Add a click event to open a new page for each DNA entry
                     button_key = f"View {df.iloc[index]['Name']}"
@@ -74,3 +75,4 @@ def display_dna_page(dna_entry):
 # Run the app
 if __name__ == '__main__':
     display_gallery()
+
