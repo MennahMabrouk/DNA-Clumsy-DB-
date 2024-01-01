@@ -1,6 +1,6 @@
 # Project/main.py
 import streamlit as st
-from Project import test
+from Project import signing
 from Project.theme_utils import set_theme
 
 # Day and Night Theme Toggle
@@ -11,7 +11,7 @@ if st.button("Toggle Theme"):
     st.session_state.theme = new_theme
 
 # Sidebar navigation
-page = st.sidebar.selectbox("Select Page", ["Home", "Test", "Contact"])
+page = st.sidebar.selectbox("Select Page", ["Home", "signing", "Contact"])
 
 # Display content based on selected page
 if page == "Home":
@@ -23,9 +23,9 @@ if page == "Home":
     # Page title with a gradient background
     st.title("Helical Hues Haven")
     st.markdown('<div class="title-container"></div>', unsafe_allow_html=True)
-elif page == "Test":
+elif page == "signing":
     # Call the test.py file in the project directory
-    test.show()
+    signing.show()
 elif page == "Contact":
     st.title("Contact Us")
     st.write("Feel free to reach out to us for any inquiries or collaborations.")
