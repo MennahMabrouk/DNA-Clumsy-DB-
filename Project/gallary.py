@@ -33,7 +33,8 @@ def display_gallery():
             response = requests.get(image_url)
             if response.status_code == 200:
                 image = Image.open(BytesIO(response.content))
-                st.image(image, caption=row['Name'], use_column_width=True)
+                # Adjust the image size for the gallery-like view
+                st.image(image, caption=row['Name'], width=300, use_column_width=False)
             else:
                 st.write(f"Failed to retrieve image for {row['Name']}")
 
@@ -52,4 +53,5 @@ def display_dna_page(dna_entry):
 # Run the app
 if __name__ == '__main__':
     display_gallery()
+
 
