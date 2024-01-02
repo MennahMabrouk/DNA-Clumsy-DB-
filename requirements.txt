@@ -5,3 +5,4 @@ biopython==1.79
 matplotlib==3.4.3
 plotly==5.5.0
 python-dotenv==0.19.1
+cx-Oracle==8.3.0
