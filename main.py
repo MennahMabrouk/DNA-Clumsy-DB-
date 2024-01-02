@@ -1,18 +1,18 @@
 # Project/main.py
 import streamlit as st
 import cx_Oracle
-from Project import signing, gallary 
+from Project import signing, gallary
 from Project.theme_utils import set_theme
 
 # Set default theme
 set_theme("day")
 
 def connect_to_oracle():
-    username = "m"
-    password = "00"
-    host = "localhost"
-    port = "1521"
-    sid = "xe"  # Replace with your actual Oracle SID
+    username = "your_username"
+    password = "your_password"
+    host = "your_host"
+    port = "your_port"
+    sid = "your_sid"  # Replace with your actual Oracle SID
 
     print(f"Attempting to connect to Oracle: {username}@{host}:{port}/{sid}")
 
@@ -28,21 +28,25 @@ def connect_to_oracle():
     except cx_Oracle.DatabaseError as e:
         print(f"Error connecting to Oracle: {e}")
         raise e
-
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
         raise e
-        
-import logging
 
+# Initialize logging outside the try block
+import logging
 logging.basicConfig(filename='app.log', level=logging.DEBUG)
 
 try:
     # Your code for connecting to Oracle
+    oracle_connection = connect_to_oracle()
+    result = execute_query(oracle_connection)
+    st.write("Oracle Query Result:", result)
 except cx_Oracle.DatabaseError as e:
     logging.error(f"Oracle Database Error: {e}")
     raise  # Reraise the exception after logging
-
+except Exception as e:
+    logging.error(f"An unexpected error occurred: {e}")
+    raise e
 
 # Function to execute a sample SQL query
 def execute_query(connection):
