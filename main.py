@@ -1,63 +1,41 @@
-# Project/main.py
 import streamlit as st
 import cx_Oracle
 from Project import signing, gallary
 from Project.theme_utils import set_theme
-import os
 from dotenv import load_dotenv
+import os
 
 load_dotenv()  # Load variables from .env file
 
-def connect_to_oracle():
-    username = os.getenv("DB_USERNAME")
-    password = os.getenv("DB_PASSWORD")
-    host = os.getenv("DB_HOST")
-    port = os.getenv("DB_PORT")
-    sid = "xe"  # Replace with your actual Oracle SID
+# Set your Oracle database connection details
+db_username = "m"
+db_password = "00"
+db_host = "localhost"
+db_port = "1521"
+db_service_name = "XE"  # Assuming XE is the service name based on your tnsnames.ora
 
-    print(f"Attempting to connect to Oracle: {username}@{host}:{port}/{sid}")
-
-    connection_str = f"{username}/{password}@{host}:{port}/{sid}"
-
-    try:
-        connection = cx_Oracle.connect(
-            connection_str,
-            encoding="UTF-8",  # Adjust as needed
-            nencoding="UTF-8",  # Adjust as needed,
-            trace=True  # Add trace to capture more details about the error
-        )
-        print("Connection successful!")
-        return connection
-    except cx_Oracle.DatabaseError as e:
-        print(f"Error connecting to Oracle: {e}")
-        raise e
-    except Exception as e:
-        import traceback
-        traceback.print_exc()  # Print the traceback
-        raise e
-
-# Additional logging
-import logging
-
-logging.basicConfig(filename='app.log', level=logging.DEBUG)
+# Construct the connection string
+connection_string = f"{db_username}/{db_password}@{db_host}:{db_port}/{db_service_name}"
 
 try:
-    # Your code for connecting to Oracle
-    oracle_connection = connect_to_oracle()
-except cx_Oracle.DatabaseError as e:
-    logging.error(f"Oracle Database Error: {e}")
-    raise  # Reraise the exception after logging
-except Exception as e:
-    logging.error(f"An unexpected error occurred: {e}")
-    raise  # Reraise the exception after logging
+    # Establish the connection
+    connection = cx_Oracle.connect(connection_string)
+    
+    # Check if the connection is successful
+    if connection:
+        st.success("Connected to the Oracle database.")
+    else:
+        st.error("Failed to connect to the Oracle database.")
 
-# Function to execute a sample SQL query
-def execute_query(connection):
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM your_table")
-    result = cursor.fetchall()
-    cursor.close()
-    return result
+
+except cx_Oracle.DatabaseError as e:
+    error, = e.args
+    if error.code == 12514:
+        st.error("ORA-12514: TNS:listener does not currently know of service requested in connect descriptor.")
+    else:
+        st.error(f"DatabaseError: {error}")
+
+
 
 # Day and Night Theme Toggle
 if st.button("Toggle Theme"):
@@ -88,11 +66,8 @@ elif page == "DNA Gallery":
     gallary.display_gallery()
 
 elif page == "Oracle Page":
-    # Connect to Oracle and execute a sample query
-    oracle_connection = connect_to_oracle()
-    result = execute_query(oracle_connection)
-    st.write("Oracle Query Result:", result)
+
+    st.write("Oracle Page - Database interaction code removed")
 
 else:
     st.write("Page not found")
-
