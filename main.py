@@ -30,28 +30,29 @@ def connect_to_oracle():
         print("Connection successful!")
         return connection
     except cx_Oracle.DatabaseError as e:
-        print(f"Error connecting to Oracle: {e}")
+        print(f"Oracle Database Error: {e}")
         raise e
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
         raise e
 
-
-# Initialize logging outside the try block
+# Additional logging
 import logging
+
 logging.basicConfig(filename='app.log', level=logging.DEBUG)
 
 try:
     # Your code for connecting to Oracle
     oracle_connection = connect_to_oracle()
-    result = execute_query(oracle_connection)
-    st.write("Oracle Query Result:", result)
 except cx_Oracle.DatabaseError as e:
     logging.error(f"Oracle Database Error: {e}")
     raise  # Reraise the exception after logging
 except Exception as e:
     logging.error(f"An unexpected error occurred: {e}")
-    raise e
+    raise  # Reraise the exception after logging
+
+# Rest of your code...
+
 
 # Function to execute a sample SQL query
 def execute_query(connection):
