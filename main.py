@@ -28,6 +28,7 @@ def connect_to_oracle():
     except cx_Oracle.DatabaseError as e:
         print(f"Error connecting to Oracle: {e}")
         raise e
+
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
         raise e
