@@ -3,16 +3,20 @@ import streamlit as st
 import cx_Oracle
 from Project import signing, gallary
 from Project.theme_utils import set_theme
+import os
+from dotenv import load_dotenv
 
 # Set default theme
 set_theme("day")
 
+load_dotenv()  # Load variables from .env file
+
 def connect_to_oracle():
-    username = "your_username"
-    password = "your_password"
-    host = "your_host"
-    port = "your_port"
-    sid = "your_sid"  # Replace with your actual Oracle SID
+    username = os.getenv("DB_USERNAME")
+    password = os.getenv("DB_PASSWORD")
+    host = os.getenv("DB_HOST")
+    port = os.getenv("DB_PORT")
+    sid = "xe"  # Replace with your actual Oracle SID
 
     print(f"Attempting to connect to Oracle: {username}@{host}:{port}/{sid}")
 
@@ -31,6 +35,7 @@ def connect_to_oracle():
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
         raise e
+
 
 # Initialize logging outside the try block
 import logging
