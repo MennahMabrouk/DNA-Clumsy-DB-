@@ -7,17 +7,24 @@ from Project.theme_utils import set_theme
 # Set default theme
 set_theme("day")
 
-# Function to connect to the Oracle database
 def connect_to_oracle():
     username = "m"
     password = "00"
     host = "localhost"
     port = "1521"
-    service_name = "your_service_name"  # Replace with your actual Oracle service name
+    sid = "xe"  # Replace with your actual Oracle SID
 
-    connection_str = f"{username}/{password}@{host}:{port}/{service_name}"
-    connection = cx_Oracle.connect(connection_str)
-    return connection
+    print(f"Attempting to connect to Oracle: {username}@{host}:{port}/{sid}")
+
+    try:
+        connection_str = f"{username}/{password}@{host}:{port}/{sid}"
+        connection = cx_Oracle.connect(connection_str)
+        print("Connection successful!")
+        return connection
+    except cx_Oracle.DatabaseError as e:
+        print(f"Error connecting to Oracle: {e}")
+        raise e
+
 
 # Function to execute a sample SQL query
 def execute_query(connection):
