@@ -6,13 +6,6 @@ from Project.theme_utils import set_theme
 import os
 from dotenv import load_dotenv
 
-# Set default theme
-set_theme("day")
-
-load_dotenv()  # Load variables from .env file
-import os
-from dotenv import load_dotenv
-
 load_dotenv()  # Load variables from .env file
 
 def connect_to_oracle():
@@ -23,6 +16,8 @@ def connect_to_oracle():
     sid = "xe"  # Replace with your actual Oracle SID
 
     print(f"Attempting to connect to Oracle: {username}@{host}:{port}/{sid}")
+    host = "156.192.241.78"
+    connection_str = f"{username}/{password}@{host}:1521/{sid}"
 
     try:
         connection_str = f"{username}/{password}@{host}:{port}/{sid}"
