@@ -16,19 +16,21 @@ def connect_to_oracle():
     sid = "xe"  # Replace with your actual Oracle SID
 
     print(f"Attempting to connect to Oracle: {username}@{host}:{port}/{sid}")
-    host = "156.192.241.78"
-    connection_str = f"{username}/{password}@{host}:1521/{sid}"
+
+    connection_str = f"{username}/{password}@{host}:{port}/{sid}"
 
     try:
-        connection_str = f"{username}/{password}@{host}:{port}/{sid}"
         connection = cx_Oracle.connect(
             connection_str,
             encoding="UTF-8",  # Adjust as needed
-            nencoding="UTF-8",  # Adjust as needed
+            nencoding="UTF-8",  # Adjust as needed,
             trace=True  # Add trace to capture more details about the error
         )
         print("Connection successful!")
         return connection
+    except cx_Oracle.DatabaseError as e:
+        print(f"Error connecting to Oracle: {e}")
+        raise e
     except Exception as e:
         import traceback
         traceback.print_exc()  # Print the traceback
@@ -42,13 +44,12 @@ logging.basicConfig(filename='app.log', level=logging.DEBUG)
 try:
     # Your code for connecting to Oracle
     oracle_connection = connect_to_oracle()
+except cx_Oracle.DatabaseError as e:
+    logging.error(f"Oracle Database Error: {e}")
+    raise  # Reraise the exception after logging
 except Exception as e:
     logging.error(f"An unexpected error occurred: {e}")
     raise  # Reraise the exception after logging
-
-# Rest of your code...
-
-
 
 # Function to execute a sample SQL query
 def execute_query(connection):
