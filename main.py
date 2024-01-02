@@ -32,6 +32,16 @@ def connect_to_oracle():
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
         raise e
+        
+import logging
+
+logging.basicConfig(filename='app.log', level=logging.DEBUG)
+
+try:
+    # Your code for connecting to Oracle
+except cx_Oracle.DatabaseError as e:
+    logging.error(f"Oracle Database Error: {e}")
+    raise  # Reraise the exception after logging
 
 
 # Function to execute a sample SQL query
