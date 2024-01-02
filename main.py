@@ -18,11 +18,18 @@ def connect_to_oracle():
 
     try:
         connection_str = f"{username}/{password}@{host}:{port}/{sid}"
-        connection = cx_Oracle.connect(connection_str)
+        connection = cx_Oracle.connect(
+            connection_str,
+            encoding="UTF-8",  # Adjust as needed
+            nencoding="UTF-8"  # Adjust as needed
+        )
         print("Connection successful!")
         return connection
     except cx_Oracle.DatabaseError as e:
         print(f"Error connecting to Oracle: {e}")
+        raise e
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
         raise e
 
 
