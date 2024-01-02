@@ -10,6 +10,10 @@ from dotenv import load_dotenv
 set_theme("day")
 
 load_dotenv()  # Load variables from .env file
+import os
+from dotenv import load_dotenv
+
+load_dotenv()  # Load variables from .env file
 
 def connect_to_oracle():
     username = os.getenv("DB_USERNAME")
@@ -25,15 +29,14 @@ def connect_to_oracle():
         connection = cx_Oracle.connect(
             connection_str,
             encoding="UTF-8",  # Adjust as needed
-            nencoding="UTF-8"  # Adjust as needed
+            nencoding="UTF-8",  # Adjust as needed
+            trace=True  # Add trace to capture more details about the error
         )
         print("Connection successful!")
         return connection
-    except cx_Oracle.DatabaseError as e:
-        print(f"Oracle Database Error: {e}")
-        raise e
     except Exception as e:
-        print(f"An unexpected error occurred: {e}")
+        import traceback
+        traceback.print_exc()  # Print the traceback
         raise e
 
 # Additional logging
@@ -44,14 +47,12 @@ logging.basicConfig(filename='app.log', level=logging.DEBUG)
 try:
     # Your code for connecting to Oracle
     oracle_connection = connect_to_oracle()
-except cx_Oracle.DatabaseError as e:
-    logging.error(f"Oracle Database Error: {e}")
-    raise  # Reraise the exception after logging
 except Exception as e:
     logging.error(f"An unexpected error occurred: {e}")
     raise  # Reraise the exception after logging
 
 # Rest of your code...
+
 
 
 # Function to execute a sample SQL query
