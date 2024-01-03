@@ -55,6 +55,7 @@ def sign_up(connection_string, username, password, user_type, phone_number, emai
 def sign_up_success():
     # Code for actions to be taken after successful sign-up
     st.write("Sign up success action here")
+    display_gallery()
 
 def show():
     # Set theme to "dark_purple"
@@ -144,6 +145,8 @@ def sign_in(connection_string, identifier, password):
             # Code for actions to be taken after successful sign-in
             # You can customize this based on your requirements
             st.write(f"Welcome, {user_data[1]}!")
+            display_gallery()
+
         else:
             st.warning("Invalid username/email or password. Please try again.")
 
@@ -151,3 +154,4 @@ def sign_in(connection_string, identifier, password):
         error, = e.args
         st.error(f"DatabaseError: {error}")
         # Handle the error appropriately
+
