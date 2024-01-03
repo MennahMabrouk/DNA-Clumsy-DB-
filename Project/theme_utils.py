@@ -59,3 +59,4 @@ def set_theme(theme):
     # Apply theme styles
     st.markdown(f"<style>{common_styles}</style>", unsafe_allow_html=True)
 
+
