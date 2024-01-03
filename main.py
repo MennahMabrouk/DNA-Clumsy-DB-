@@ -3,9 +3,12 @@ import cx_Oracle
 from Project import signing, gallary
 from Project.theme_utils import set_theme
 from dotenv import load_dotenv
-import os
+from Project.db_utils import get_oracle_connection_string  
 
-load_dotenv()  # Load variables from .env file
+
+load_dotenv()  
+# Construct the connection string using the function
+connection_string = get_oracle_connection_string()
 
 # Set your Oracle database connection details
 db_username = "m"
