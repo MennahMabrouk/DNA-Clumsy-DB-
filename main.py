@@ -1,6 +1,7 @@
 import streamlit as st
 import cx_Oracle
 from Project import signing, gallary
+from Project.mailing import send_feedback_email
 from Project.theme_utils import set_theme
 from dotenv import load_dotenv
 from Project.db_utils import get_oracle_connection_string  
@@ -46,9 +47,10 @@ if st.button("Toggle Theme"):
     new_theme = "night" if current_theme == "day" else "day"
     set_theme(new_theme)
     st.session_state.theme = new_theme
+# ... (existing code)
 
 # Sidebar navigation
-page = st.sidebar.selectbox("Select Page", ["Home", "Signing", "DNA Gallery", "Oracle Page"])  # Added "Oracle Page"
+page = st.sidebar.selectbox("Select Page", ["Home", "Signing", "DNA Gallery", "Oracle Page", "Mailing"])
 
 if page == "Home":
     # Display image at the beginning with caption
@@ -69,8 +71,31 @@ elif page == "DNA Gallery":
     gallary.display_gallery()
 
 elif page == "Oracle Page":
-
     st.write("Oracle Page - Database interaction code removed")
+
+
+elif page == "Mailing":
+    st.header("Feedback")
+    
+    # Input for user's email address
+    sender_email = st.text_input("Your Email Address:")
+    
+    # Text area for feedback
+    feedback_text = st.text_area("Enter your feedback:")
+
+    # Button to send email
+    if st.button("Send Email"):
+        # Check if both email and feedback are provided
+        if sender_email and feedback_text:
+            # Send feedback email
+            if send_feedback_email(sender_email, feedback_text):
+                st.success("Email sent successfully!")
+            else:
+                st.error("Error sending email. Please try again later.")
+        else:
+            st.error("Please provide both your email address and feedback.")
+
 
 else:
     st.write("Page not found")
+
