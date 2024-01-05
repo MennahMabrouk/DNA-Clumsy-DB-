@@ -6,7 +6,7 @@ import os
 
 GMAIL = "mennahtullahmabrouk@gmail.com"
 GMAIL_USERNAME = "Mennahtullah Mabrouk"
-GMAIL_PASSWORD = "zxyvjptscxwhkvuv"
+GMAIL_PASSWORD = "zxyvuv"
 
 def send_feedback_email(user_email, feedback_text):
     sender_email = GMAIL
