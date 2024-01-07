@@ -65,8 +65,8 @@ def sign_up(connection_string, username, password, user_type, phone_number, emai
 
         # Insert user data into the 'Users' table
         cursor.execute("""
-            INSERT INTO Users (User_ID, User_name, Pass, User_type, Phone_No, Email, Gender)
-            VALUES (:user_id, :username, :password, :user_type, :phone_number, :email, :gender)
+            INSERT INTO Users (User_ID, User_name, Pass, User_type, Phone_No, Email, Gender, S_TIMESTAMP)
+            VALUES (:user_id, :username, :password, :user_type, :phone_number, :email, :gender, CURRENT_TIMESTAMP)
         """, {
             'user_id': user_id,
             'username': username,
