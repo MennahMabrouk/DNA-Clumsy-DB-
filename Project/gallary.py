@@ -4,6 +4,7 @@ import cx_Oracle
 from PIL import Image
 import requests
 from io import BytesIO
+from PIL import Image, ImageDraw, UnidentifiedImageError
 from Project.db_utils import get_oracle_connection_string
 
 def fetch_data_from_database(connection_string, table_names):
@@ -83,7 +84,6 @@ def display_gallery(connection_string):
         gallery_data = merge_data(genes_data, images_data, sequences_data)
         gallery_data = merge_data(genes_data, images_data, sequences_data)
 
-
         # Create a DataFrame from the gallery_data
         df = pd.DataFrame(gallery_data)
 
@@ -118,7 +118,6 @@ def display_gallery(connection_string):
         else:
             st.write(f"No matching or sorted DNA entries found on this page. Total pages: {total_pages}")
 
-
         if not current_page_df.empty:
             # Define the number of columns and rows in the grid
             num_columns = 3
@@ -144,29 +143,35 @@ def display_gallery(connection_string):
                                     # If null or empty, use the default image URL
                                     image_url = "https://hms.harvard.edu/sites/default/files/media/DNA-850.jpg"
 
-                                response = requests.get(image_url)
-                                if response.status_code == 200:
-                                    image = Image.open(BytesIO(response.content))
-                                    # Adjust the image size for the grid view
-                                    st.image(image, caption=current_page_df.iloc[index]['GENE_NAME'], width=200, use_column_width=False)
+                                try:
+                                    response = requests.get(image_url)
+                                    if response.status_code == 200:
+                                        image = Image.open(BytesIO(response.content))
+                                        # Adjust the image size for the grid view
+                                        st.image(image, caption=current_page_df.iloc[index]['GENE_NAME'], width=200, use_column_width=False)
 
-                                    # Add a button to view full-size image
-                                    button_key = f"View Full Size Image {index}"  # Unique key incorporating the index
-                                    if st.button(button_key):
-                                        display_full_size_image(image)
+                                        # Add a button to view full-size image
+                                        button_key = f"View Full Size Image {index}"  # Unique key incorporating the index
+                                        if st.button(button_key):
+                                            display_full_size_image(image)
 
-                                    # Add a button to view nucleotide percentages graph
-                                    graph_button_key = f"View Nucleotide Graph {index} Button"  # Unique key incorporating the index and type
-                                    if st.button(graph_button_key):
-                                        display_nucleotide_graph(current_page_df.iloc[index]['DNA_SEQ'])
+                                        # Add a button to view nucleotide percentages graph
+                                        graph_button_key = f"View Nucleotide Graph {index} Button"  # Unique key incorporating the index and type
+                                        if st.button(graph_button_key):
+                                            display_nucleotide_graph(current_page_df.iloc[index]['DNA_SEQ'])
 
-                                    # Add a download button for FASTA format for each DNA entry
-                                    download_button_key = f"Download FASTA {index}"
-                                    fasta_data = generate_fasta(current_page_df.iloc[[index]])
-                                    st.download_button(f"Download DNA Data (FASTA) - {current_page_df.iloc[index]['GENE_NAME']}", fasta_data, file_name=f"dna_data_{index}.fasta", key=download_button_key)
+                                        # Add a download button for FASTA format for each DNA entry
+                                        download_button_key = f"Download FASTA {index}"
+                                        fasta_data = generate_fasta(current_page_df.iloc[[index]])
+                                        st.download_button(f"Download DNA Data (FASTA) - {current_page_df.iloc[index]['GENE_NAME']}", fasta_data, file_name=f"dna_data_{index}.fasta", key=download_button_key)
 
-                                else:
-                                    st.write(f"Failed to retrieve image for {current_page_df.iloc[index]['GENE_NAME']}")
+                                    else:
+                                        st.write(f"Failed to retrieve image for {current_page_df.iloc[index]['GENE_NAME']}")
+
+                                except UnidentifiedImageError:
+                                    st.write(f"Failed to identify image for {current_page_df.iloc[index]['GENE_NAME']}. Displaying default image.")
+                                    # Display default image
+                                    st.image("https://hms.harvard.edu/sites/default/files/media/DNA-850.jpg", caption=current_page_df.iloc[index]['GENE_NAME'], width=200, use_column_width=False)
 
             # Pagination information
             st.write(f"Page {page_number}/{total_pages}")
