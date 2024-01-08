@@ -1,0 +1,98 @@
+ERROR:root:An unexpected error occurred: 'trace' is an invalid keyword argument for this function
+ERROR:root:An unexpected error occurred: 'trace' is an invalid keyword argument for this function
+ERROR:root:An unexpected error occurred: 'trace' is an invalid keyword argument for this function
+ERROR:root:An unexpected error occurred: 'trace' is an invalid keyword argument for this function
+ERROR:root:An unexpected error occurred: 'trace' is an invalid keyword argument for this function
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wirecase3d.com:443
+DEBUG:urllib3.connectionpool:https://wirecase3d.com:443 "GET /cdn/shop/products/dna1.jpg?v=1532865464&width=823 HTTP/1.1" 200 77716
+DEBUG:PIL.TiffImagePlugin:tag: Orientation (274) - type: short (3) - value: b'\x01\x00'
+DEBUG:PIL.TiffImagePlugin:tag: XResolution (282) - type: rational (5) Tag Location: 34 - Data Location: 86 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+DEBUG:PIL.TiffImagePlugin:tag: YResolution (283) - type: rational (5) Tag Location: 46 - Data Location: 94 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+DEBUG:PIL.TiffImagePlugin:tag: ResolutionUnit (296) - type: short (3) - value: b'\x02\x00'
+DEBUG:PIL.TiffImagePlugin:tag: YCbCrPositioning (531) - type: short (3) - value: b'\x01\x00'
+DEBUG:PIL.TiffImagePlugin:tag: ExifIFD (34665) - type: long (4) - value: b'f\x00\x00\x00'
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/511/206/HD-wallpaper-artistic-dna-structure-3d.jpg HTTP/1.1" 200 72871
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/310/101/HD-wallpaper-artistic-dna-structure.jpg HTTP/1.1" 200 42236
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/611/928/HD-wallpaper-dna-molecule-blue-neon-dna-deoxyribonucleic-acid-dna-nucleic-acid-structure-blue-science-background-medicine-blue-background-science-concepts-blue-neon-molecule-black-background-with-dna.jpg HTTP/1.1" 200 131314
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/548/840/HD-wallpaper-blue-science-background-dna-molecule-background-chemistry-background-blue-neon-background-science-texture-dna-concepts.jpg HTTP/1.1" 200 53233
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/659/633/HD-wallpaper-3d-molecule-dna-biology-chemistry-molecule.jpg HTTP/1.1" 200 43692
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wirecase3d.com:443
+DEBUG:urllib3.connectionpool:https://wirecase3d.com:443 "GET /cdn/shop/products/dna1.jpg?v=1532865464&width=823 HTTP/1.1" 200 77716
+DEBUG:PIL.TiffImagePlugin:tag: Orientation (274) - type: short (3) - value: b'\x01\x00'
+DEBUG:PIL.TiffImagePlugin:tag: XResolution (282) - type: rational (5) Tag Location: 34 - Data Location: 86 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+DEBUG:PIL.TiffImagePlugin:tag: YResolution (283) - type: rational (5) Tag Location: 46 - Data Location: 94 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+DEBUG:PIL.TiffImagePlugin:tag: ResolutionUnit (296) - type: short (3) - value: b'\x02\x00'
+DEBUG:PIL.TiffImagePlugin:tag: YCbCrPositioning (531) - type: short (3) - value: b'\x01\x00'
+DEBUG:PIL.TiffImagePlugin:tag: ExifIFD (34665) - type: long (4) - value: b'f\x00\x00\x00'
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/511/206/HD-wallpaper-artistic-dna-structure-3d.jpg HTTP/1.1" 200 72871
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/310/101/HD-wallpaper-artistic-dna-structure.jpg HTTP/1.1" 200 42236
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/611/928/HD-wallpaper-dna-molecule-blue-neon-dna-deoxyribonucleic-acid-dna-nucleic-acid-structure-blue-science-background-medicine-blue-background-science-concepts-blue-neon-molecule-black-background-with-dna.jpg HTTP/1.1" 200 131314
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/548/840/HD-wallpaper-blue-science-background-dna-molecule-background-chemistry-background-blue-neon-background-science-texture-dna-concepts.jpg HTTP/1.1" 200 53233
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/659/633/HD-wallpaper-3d-molecule-dna-biology-chemistry-molecule.jpg HTTP/1.1" 200 43692
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wirecase3d.com:443
+DEBUG:urllib3.connectionpool:https://wirecase3d.com:443 "GET /cdn/shop/products/dna1.jpg?v=1532865464&width=823 HTTP/1.1" 200 77716
+DEBUG:PIL.TiffImagePlugin:tag: Orientation (274) - type: short (3) - value: b'\x01\x00'
+DEBUG:PIL.TiffImagePlugin:tag: XResolution (282) - type: rational (5) Tag Location: 34 - Data Location: 86 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+DEBUG:PIL.TiffImagePlugin:tag: YResolution (283) - type: rational (5) Tag Location: 46 - Data Location: 94 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+DEBUG:PIL.TiffImagePlugin:tag: ResolutionUnit (296) - type: short (3) - value: b'\x02\x00'
+DEBUG:PIL.TiffImagePlugin:tag: YCbCrPositioning (531) - type: short (3) - value: b'\x01\x00'
+DEBUG:PIL.TiffImagePlugin:tag: ExifIFD (34665) - type: long (4) - value: b'f\x00\x00\x00'
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/511/206/HD-wallpaper-artistic-dna-structure-3d.jpg HTTP/1.1" 200 72871
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/310/101/HD-wallpaper-artistic-dna-structure.jpg HTTP/1.1" 200 42236
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/611/928/HD-wallpaper-dna-molecule-blue-neon-dna-deoxyribonucleic-acid-dna-nucleic-acid-structure-blue-science-background-medicine-blue-background-science-concepts-blue-neon-molecule-black-background-with-dna.jpg HTTP/1.1" 200 131314
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/548/840/HD-wallpaper-blue-science-background-dna-molecule-background-chemistry-background-blue-neon-background-science-texture-dna-concepts.jpg HTTP/1.1" 200 53233
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/659/633/HD-wallpaper-3d-molecule-dna-biology-chemistry-molecule.jpg HTTP/1.1" 200 43692
+ERROR:root:Oracle Database Error: ORA-24415: Missing or null username.
+ERROR:root:Oracle Database Error: ORA-24415: Missing or null username.
+ERROR:root:Oracle Database Error: ORA-24415: Missing or null username.
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wirecase3d.com:443
+DEBUG:urllib3.connectionpool:https://wirecase3d.com:443 "GET /cdn/shop/products/dna1.jpg?v=1532865464&width=823 HTTP/1.1" 200 77716
+DEBUG:PIL.TiffImagePlugin:tag: Orientation (274) - type: short (3) - value: b'\x01\x00'
+DEBUG:PIL.TiffImagePlugin:tag: XResolution (282) - type: rational (5) Tag Location: 34 - Data Location: 86 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+DEBUG:PIL.TiffImagePlugin:tag: YResolution (283) - type: rational (5) Tag Location: 46 - Data Location: 94 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+DEBUG:PIL.TiffImagePlugin:tag: ResolutionUnit (296) - type: short (3) - value: b'\x02\x00'
+DEBUG:PIL.TiffImagePlugin:tag: YCbCrPositioning (531) - type: short (3) - value: b'\x01\x00'
+DEBUG:PIL.TiffImagePlugin:tag: ExifIFD (34665) - type: long (4) - value: b'f\x00\x00\x00'
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/511/206/HD-wallpaper-artistic-dna-structure-3d.jpg HTTP/1.1" 200 72871
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/310/101/HD-wallpaper-artistic-dna-structure.jpg HTTP/1.1" 200 42236
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/611/928/HD-wallpaper-dna-molecule-blue-neon-dna-deoxyribonucleic-acid-dna-nucleic-acid-structure-blue-science-background-medicine-blue-background-science-concepts-blue-neon-molecule-black-background-with-dna.jpg HTTP/1.1" 200 131314
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/548/840/HD-wallpaper-blue-science-background-dna-molecule-background-chemistry-background-blue-neon-background-science-texture-dna-concepts.jpg HTTP/1.1" 200 53233
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/659/633/HD-wallpaper-3d-molecule-dna-biology-chemistry-molecule.jpg HTTP/1.1" 200 43692
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): wirecase3d.com:443
+DEBUG:urllib3.connectionpool:https://wirecase3d.com:443 "GET /cdn/shop/products/dna1.jpg?v=1532865464&width=823 HTTP/1.1" 200 77716
+DEBUG:PIL.TiffImagePlugin:tag: Orientation (274) - type: short (3) - value: b'\x01\x00'
+DEBUG:PIL.TiffImagePlugin:tag: XResolution (282) - type: rational (5) Tag Location: 34 - Data Location: 86 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+DEBUG:PIL.TiffImagePlugin:tag: YResolution (283) - type: rational (5) Tag Location: 46 - Data Location: 94 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+DEBUG:PIL.TiffImagePlugin:tag: ResolutionUnit (296) - type: short (3) - value: b'\x02\x00'
+DEBUG:PIL.TiffImagePlugin:tag: YCbCrPositioning (531) - type: short (3) - value: b'\x01\x00'
+DEBUG:PIL.TiffImagePlugin:tag: ExifIFD (34665) - type: long (4) - value: b'f\x00\x00\x00'
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/511/206/HD-wallpaper-artistic-dna-structure-3d.jpg HTTP/1.1" 200 72871
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/310/101/HD-wallpaper-artistic-dna-structure.jpg HTTP/1.1" 200 42236
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/611/928/HD-wallpaper-dna-molecule-blue-neon-dna-deoxyribonucleic-acid-dna-nucleic-acid-structure-blue-science-background-medicine-blue-background-science-concepts-blue-neon-molecule-black-background-with-dna.jpg HTTP/1.1" 200 131314
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/548/840/HD-wallpaper-blue-science-background-dna-molecule-background-chemistry-background-blue-neon-background-science-texture-dna-concepts.jpg HTTP/1.1" 200 53233
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): w0.peakpx.com:443
+DEBUG:urllib3.connectionpool:https://w0.peakpx.com:443 "GET /wallpaper/659/633/HD-wallpaper-3d-molecule-dna-biology-chemistry-molecule.jpg HTTP/1.1" 200 43692
