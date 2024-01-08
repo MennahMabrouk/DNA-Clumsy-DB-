@@ -1,22 +1,43 @@
-import streamlit as st
-import pandas as pd
-import cx_Oracle
-from PIL import Image
+import base64
 import requests
+import cx_Oracle
+import pandas as pd
+from Bio import SeqIO
+from PIL import Image
+import streamlit as st
 from io import BytesIO
+from io import StringIO
+from Bio.Seq import Seq
+from io import StringIO
+from Bio.SeqIO import write
+from Bio.SeqUtils import nt_search
+from Bio.SeqRecord import SeqRecord
+from io import BytesIO, TextIOWrapper
 from PIL import Image, ImageDraw, UnidentifiedImageError
 from Project.db_utils import get_oracle_connection_string
 
-def fetch_data_from_database(connection_string, table_names):
+
+@st.cache_data()
+def fetch_data_from_database(connection_string, table_names, custom_query=None, bind_vars=None):
+    
     data = {}
     try:
         connection = cx_Oracle.connect(connection_string)
         cursor = connection.cursor()
 
         for table_name in table_names:
-            # Fetch data for each table
-            query = f"SELECT * FROM {table_name}"
-            cursor.execute(query)
+            if custom_query:
+                query = custom_query
+            else:
+                # Fetch data for each table
+                query = f"SELECT * FROM {table_name}"
+
+            # Execute the query with bind variables if provided
+            if bind_vars:
+                cursor.execute(query, bind_vars)
+            else:
+                cursor.execute(query)
+
             columns = [desc[0] for desc in cursor.description]
             table_data = [dict(zip(columns, row)) for row in cursor.fetchall()]
 
@@ -30,7 +51,7 @@ def fetch_data_from_database(connection_string, table_names):
     except cx_Oracle.DatabaseError as e:
         error, = e.args
         st.error(f"DatabaseError: {error}")
-    
+
     return data
 
 
@@ -39,8 +60,21 @@ def set_page_configuration():
     st.set_page_config(page_title="DNA Gallery", page_icon="🧬", layout="wide")
 
 def filter_data(df, search_query):
-    # Adjust column names according to your actual data
-    return df[df['GENE_NAME'].str.contains(search_query, case=False) | df['DNA_SEQ'].str.contains(search_query, case=False, na=False)]
+    if search_query.strip() != "":
+        # Filter the DataFrame based on the exact match for gene ID
+        exact_match_df = df[df['GENE_ID'].str.lower() == search_query.lower()]
+
+        # Filter the DataFrame based on partial match for sequence
+        partial_match_df = df[df['DNA_SEQ'].str.contains(search_query, case=False, na=False)]
+
+        # Concatenate the DataFrames to include both exact and partial matches
+        filtered_df = pd.concat([exact_match_df, partial_match_df]).drop_duplicates()
+
+    else:
+        # If the search query is empty, return the original DataFrame
+        filtered_df = df
+
+    return filtered_df
 
 def merge_data(genes_data, images_data, sequences_data):
     genes_df = pd.DataFrame(genes_data, columns=["GENE_ID", "GENE_NAME", "COMMENTS", "GENE_TYPE"])
@@ -56,7 +90,6 @@ def merge_data(genes_data, images_data, sequences_data):
     
     return merged_data
 
-
 def sort_data(df, sort_option):
     if sort_option == 'Name':
         return df.sort_values(by='GENE_NAME')
@@ -71,148 +104,205 @@ def sort_data(df, sort_option):
     else:
         return df
 
+def generate_fasta_from_db(connection_string, gene_name):
+    
+    # Fetch the DNA sequence for the specified gene_name from the database
+    sequence_query = f"SELECT DNA_SEQ FROM SEQUENCES WHERE GENE_ID IN (SELECT GENE_ID FROM GENES WHERE GENE_NAME = '{gene_name}')"
+    sequence_result = fetch_data_from_database(connection_string, ["SEQUENCES"], custom_query=sequence_query)
+
+    if sequence_result and sequence_result["SEQUENCES"]:
+        dna_seq = sequence_result["SEQUENCES"][0]["DNA_SEQ"]
+
+        # Remove newline characters from the DNA sequence
+        dna_seq = dna_seq.replace("\n", "").replace("\r", "")
+
+        # Create a Biopython SeqRecord from the DNA sequence string
+        seq_record = SeqRecord(Seq(dna_seq), id=gene_name, description="")
+
+        # Create a string buffer to store the FASTA data
+        fasta_string_buffer = StringIO()
+
+        # Write the SeqRecord to the string buffer as a FASTA file
+        write([seq_record], fasta_string_buffer, 'fasta')
+
+        # Get the content of the string buffer as a string
+        fasta_string = fasta_string_buffer.getvalue()
+
+        return fasta_string
+
+    else:
+        st.warning(f"No DNA sequence found for gene: {gene_name}")
+        return None
+
+
+
+def generate_download_link(data, text):
+    # Check if data is a string
+    if isinstance(data, str):
+        # Encode the content to base64
+        base64_data = base64.b64encode(data.encode('utf-8')).decode('utf-8')
+
+        # Generate the download link
+        href = f"data:text/plain;charset=utf-8;base64,{base64_data}"
+        return f'<a href="{href}" download="{text}">{text}</a>'
+
+    else:
+        st.warning("Invalid data format for generating download link.")
+        return None
+
+
+
+
+def display_dna_section(index, current_page_df, connection_string):
+    st.write(f"**{current_page_df.iloc[index]['GENE_NAME']}**")
+
+    # Check if the 'IMAGE_FILE' column exists
+    if 'IMAGE_FILE' in current_page_df.columns:
+        image_url = current_page_df.iloc[index]['IMAGE_FILE']
+
+        # Check if the image URL is null or empty
+        if pd.isnull(image_url) or not image_url.strip():
+            # If null or empty, use the default image URL
+            image_url = "https://hms.harvard.edu/sites/default/files/media/DNA-850.jpg"
+
+        try:
+            response = requests.get(image_url)
+            if response.status_code == 200:
+                image = Image.open(BytesIO(response.content))
+                # Adjust the image size for the section
+                st.image(image, caption=current_page_df.iloc[index]['GENE_NAME'], width=300, use_column_width=False)
+
+                # Add a button to view full-size image
+                button_key = f"View Full Size Image {index}"  # Unique key incorporating the index
+                if st.button(button_key):
+                    print(f"Button '{button_key}' clicked")
+                    display_full_size_image(image)
+
+                # Display nucleotide percentages graph
+                display_nucleotide_graph(current_page_df.iloc[index]['DNA_SEQ'])
+
+                # Inside display_dna_section function
+                download_link_text = f"Download DNA Data (FASTA) - {current_page_df.iloc[index]['GENE_NAME']}"
+                fasta_data = generate_fasta_from_db(connection_string, current_page_df.iloc[index]['GENE_NAME'])
+                if fasta_data:
+                    st.markdown(generate_download_link(fasta_data, download_link_text), unsafe_allow_html=True)
+
+            else:
+                st.write(f"Failed to retrieve image for {current_page_df.iloc[index]['GENE_NAME']}")
+
+        except UnidentifiedImageError:
+            st.image("https://hms.harvard.edu/sites/default/files/media/DNA-850.jpg",
+                     caption=current_page_df.iloc[index]['GENE_NAME'], width=500, use_column_width=False)
+
+            download_link_text = f"Download DNA Data (FASTA) - {current_page_df.iloc[index]['GENE_NAME']}"
+            fasta_data = generate_fasta_from_db(connection_string, current_page_df.iloc[index]['GENE_NAME'])
+            if fasta_data:
+                st.markdown(generate_download_link(fasta_data, download_link_text), unsafe_allow_html=True)
+
+    else:
+        st.write(f"No image available for {current_page_df.iloc[index]['GENE_NAME']}")
+
+
+
 def display_gallery(connection_string):
     # Fetching data from the database
     table_names = ["GENES", "SEQUENCES", "IMAGES"]
     data = fetch_data_from_database(connection_string, table_names)
 
     # Check if data retrieval was successful for all tables
-    if all(data.get(table_name) is not None for table_name in table_names):
-        genes_data, sequences_data, images_data = (data[table_name] for table_name in table_names)
+    for table_name in table_names:
+        if data.get(table_name) is None:
+            st.error(f"Error fetching data from the {table_name} table.")
+            return
 
-        # Merge data
-        gallery_data = merge_data(genes_data, images_data, sequences_data)
-        gallery_data = merge_data(genes_data, images_data, sequences_data)
+    # Merge data
+    gallery_data = merge_data(data["GENES"], data["IMAGES"], data["SEQUENCES"])
 
-        # Create a DataFrame from the gallery_data
-        df = pd.DataFrame(gallery_data)
+    # Create a DataFrame from the gallery_data
+    df = pd.DataFrame(gallery_data)
 
-        # Search functionality
-        search_query = st.text_input("Search by gene ID or sequence:", "")
-        filtered_df = filter_data(df, search_query)
+    # Search functionality
+    search_query = st.text_input("Search by gene ID or sequence:", "")
+    filtered_df = filter_data(df, search_query)
 
-        # Sorting options
-        sort_option = st.selectbox("Sort DNA entries by:", ['Name', 'A Percentage', 'T Percentage', 'C Percentage', 'G Percentage'])
+    # Sorting options
+    sort_option = st.selectbox("Sort DNA entries by:", ['Name', 'A Percentage', 'T Percentage', 'C Percentage', 'G Percentage'])
 
-        # Sort the data based on the selected option
-        sorted_df = sort_data(df, sort_option)
+    # Sort the data based on the selected option
+    sorted_df = sort_data(filtered_df, sort_option)
 
-        # Pagination
-        page_size = 9
-        total_pages = (len(sorted_df) - 1) // page_size + 1
-        page_number = st.number_input("Enter page number:", min_value=1, max_value=total_pages, value=1)
-        start_index = (page_number - 1) * page_size
-        end_index = min(start_index + page_size, len(sorted_df))
+    # Pagination
+    page_size = 9
+    total_pages = (len(sorted_df) - 1) // page_size + 1
+    page_number = st.number_input("Enter page number:", min_value=1, max_value=total_pages, value=1)
+    start_index = (page_number - 1) * page_size
+    end_index = min(start_index + page_size, len(sorted_df))
 
-        # Display the sorted and filtered DNA entries for the current page
-        current_page_df = sorted_df[start_index:end_index]
+    # Display the sorted and filtered DNA entries for the current page
+    current_page_df = sorted_df[start_index:end_index]
 
-        # Debugging statements
-        st.write(f"Start Index: {start_index}, End Index: {end_index}, Total Rows: {len(sorted_df)}")
-        st.write(f"Sorted DataFrame:")
-        st.write(sorted_df)
+    # Check if there are more pages
+    if total_pages > 1 and end_index >= len(sorted_df):
+        st.warning("No matching or sorted DNA entries found on this page.")
 
-        # Check if there are more pages
-        if end_index < len(sorted_df):
-            st.write(f"No further entries on subsequent pages. Total pages: {total_pages}")
-        else:
-            st.write(f"No matching or sorted DNA entries found on this page. Total pages: {total_pages}")
+    if not current_page_df.empty:
+        # Define the number of columns and rows in the grid
+        num_columns = 3
+        num_rows = len(current_page_df) // num_columns + (len(current_page_df) % num_columns > 0)
 
-        if not current_page_df.empty:
-            # Define the number of columns and rows in the grid
-            num_columns = 3
-            num_rows = len(current_page_df) // num_columns + (len(current_page_df) % num_columns > 0)
+        # Use Streamlit's columns layout manager for grid view
+        cols = st.columns(num_columns)
 
-            # Use Streamlit's columns layout manager for grid view
-            cols = st.columns(num_columns)
+    # Inside display_gallery function
+    for row_index in range(num_rows):
+        st.write(f"--- DNA Section {row_index + 1} ---")
+        for col_index in range(num_columns):
+            index = row_index * num_columns + col_index
+            if index < len(current_page_df):
+                # Display DNA images and names in a section
+                display_dna_section(index, current_page_df, connection_string)  # Pass connection_string as an argument
 
-            for row_index in range(num_rows):
-                for col_index in range(num_columns):
-                    index = row_index * num_columns + col_index
-                    if index < len(current_page_df):
-                        # Display DNA images and names in a grid
-                        with cols[col_index]:
-                            st.write(f"**{current_page_df.iloc[index]['GENE_NAME']}**")
-
-                            # Check if the 'IMAGE_FILE' column exists
-                            if 'IMAGE_FILE' in current_page_df.columns:
-                                image_url = current_page_df.iloc[index]['IMAGE_FILE']
-
-                                # Check if the image URL is null or empty
-                                if pd.isnull(image_url) or not image_url.strip():
-                                    # If null or empty, use the default image URL
-                                    image_url = "https://hms.harvard.edu/sites/default/files/media/DNA-850.jpg"
-
-                                try:
-                                    response = requests.get(image_url)
-                                    if response.status_code == 200:
-                                        image = Image.open(BytesIO(response.content))
-                                        # Adjust the image size for the grid view
-                                        st.image(image, caption=current_page_df.iloc[index]['GENE_NAME'], width=200, use_column_width=False)
-
-                                        # Add a button to view full-size image
-                                        button_key = f"View Full Size Image {index}"  # Unique key incorporating the index
-                                        if st.button(button_key):
-                                            display_full_size_image(image)
-
-                                        # Add a button to view nucleotide percentages graph
-                                        graph_button_key = f"View Nucleotide Graph {index} Button"  # Unique key incorporating the index and type
-                                        if st.button(graph_button_key):
-                                            display_nucleotide_graph(current_page_df.iloc[index]['DNA_SEQ'])
-
-                                        # Add a download button for FASTA format for each DNA entry
-                                        download_button_key = f"Download FASTA {index}"
-                                        fasta_data = generate_fasta(current_page_df.iloc[[index]])
-                                        st.download_button(f"Download DNA Data (FASTA) - {current_page_df.iloc[index]['GENE_NAME']}", fasta_data, file_name=f"dna_data_{index}.fasta", key=download_button_key)
-
-                                    else:
-                                        st.write(f"Failed to retrieve image for {current_page_df.iloc[index]['GENE_NAME']}")
-
-                                except UnidentifiedImageError:
-                                    st.write(f"Failed to identify image for {current_page_df.iloc[index]['GENE_NAME']}. Displaying default image.")
-                                    # Display default image
-                                    st.image("https://hms.harvard.edu/sites/default/files/media/DNA-850.jpg", caption=current_page_df.iloc[index]['GENE_NAME'], width=200, use_column_width=False)
-
-            # Pagination information
-            st.write(f"Page {page_number}/{total_pages}")
-
-        else:
-            st.write("No matching or sorted DNA entries found on this page.")
+        # Pagination information
+        st.write(f"Page {page_number}/{total_pages}")
 
     else:
-        st.error("Failed to fetch data from one or more tables in the database.")
-
-
-def generate_fasta(df):
-    fasta_lines = []
-
-    for index, row in df.iterrows():
-        fasta_lines.append(f">{row['GENE_NAME']}\n{row['DNA_SEQ']}")  # Fix the column names
-
-    return "\n".join(fasta_lines)
+        st.warning("No matching or sorted DNA entries found on this page.")
 
 def display_nucleotide_graph(sequence):
     st.write("**Nucleotide Percentages:**")
 
-    # Calculate nucleotide percentages
-    nucleotide_counts = {"A": 0, "T": 0, "C": 0, "G": 0}
-    total_nucleotides = len(sequence)
+    if not sequence:
+        st.warning("No DNA sequence available.")
+        return
 
-    for nucleotide in sequence:
-        if nucleotide in nucleotide_counts:
-            nucleotide_counts[nucleotide] += 1
+    # Clean the sequence by removing non-nucleotide characters
+    clean_sequence = ''.join([base for base in sequence.upper() if base in {'A', 'T', 'C', 'G'}])
+
+    # Check if the cleaned sequence is empty
+    if not clean_sequence:
+        st.warning("No valid nucleotides found in the DNA sequence.")
+        return
+
+    # Count nucleotide occurrences
+    count_A = clean_sequence.count('A')
+    count_T = clean_sequence.count('T')
+    count_C = clean_sequence.count('C')
+    count_G = clean_sequence.count('G')
+
+    total_nucleotides = len(clean_sequence)
 
     # Calculate percentages
-    percentages = {key: (count / total_nucleotides) * 100 for key, count in nucleotide_counts.items()}
+    percentage_A = (count_A / total_nucleotides) * 100
+    percentage_T = (count_T / total_nucleotides) * 100
+    percentage_C = (count_C / total_nucleotides) * 100
+    percentage_G = (count_G / total_nucleotides) * 100
 
-    st.write(f"A: {percentages['A']:.2f}%")
-    st.write(f"T: {percentages['T']:.2f}%")
-    st.write(f"C: {percentages['C']:.2f}%")
-    st.write(f"G: {percentages['G']:.2f}%")
-
-    # Create a bar chart for nucleotide percentages
-    data = pd.DataFrame({"Nucleotide": list(percentages.keys()), "Percentage": list(percentages.values())})
-    st.bar_chart(data.set_index("Nucleotide"))
+    st.bar_chart({
+        'A': percentage_A,
+        'T': percentage_T,
+        'C': percentage_C,
+        'G': percentage_G
+    })
 
 def display_full_size_image(image):
     st.image(image, caption="Full Size Image", use_column_width=True)
